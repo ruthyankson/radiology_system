@@ -1,0 +1,85 @@
+.centered {
+    text-align: center;
+}
+
+.spacer {
+    margin-top: 200px;
+}
+
+.spacer-one {
+    margin-top: 150px;
+}
+
+.space {
+    margin-top: 30px;
+}
+
+.bg-gradient-overlay {
+  background-image: linear-gradient(310deg, #00003b 0%, #00006b 100%);
+}
+
+.password-in {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 0.1ch;
+}
+
+.pass-eye {
+    display: inline;
+    margin-left: 100px;
+    cursor: pointer;
+}
+
+.special-emphasis {
+    color: #5e72e4;
+}
+
+/* argon input */
+input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 0.5rem 20px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    color: #495057;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #d2d6da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: 0.2s ease;
+}
+
+.aligned label {
+    display: none;
+}
+
+/* CSS Styles for the Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* CSS Styles for the Header */
+.header {
+    background-color: #0074cc;
+    color: #fff;
+    padding: 20px;
+}
+
+/* Add more styles for your header content */
