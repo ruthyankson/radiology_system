@@ -25,6 +25,9 @@ from utils.constants import APP_NAME
 urlpatterns = [
     path(f'{APP_NAME}/admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
+
+    path('general_setup/', include('general_setup.urls')),
+    path('facility/', include('facility.urls')),
 ]
 
 
