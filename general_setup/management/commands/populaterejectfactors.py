@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from general_setup.models.RejectFactor import RejectFactor
 
-from utilities.constants import REJECT_FACTORS
-from utilities.helpers import validateUnique
+from utils.constants import REJECT_FACTORS
+from utils.helpers import validateUnique
 
 
 class Command(BaseCommand):

@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from general_setup.models.EducationalLevel import EducationalLevel
 
-from utilities.constants import EDUCATIONAL_LEVELS
-from utilities.helpers import validateUnique
+from utils.constants import EDUCATIONAL_LEVELS
+from utils.helpers import validateUnique
 
 
 class Command(BaseCommand):

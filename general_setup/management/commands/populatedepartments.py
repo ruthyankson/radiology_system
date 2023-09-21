@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from general_setup.models.Department import Department as modelHere
 
-from utilities.constants import DEPARTMENTS
-from utilities.helpers import validateUnique
+from utils.constants import DEPARTMENTS
+from utils.helpers import validateUnique
 
 
 class Command(BaseCommand):

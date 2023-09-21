@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from general_setup.models.ExaminationType import ExaminationType
 
-from utilities.constants import EXAMINATION_TYPES
-from utilities.helpers import validateUnique
+from utils.constants import EXAMINATION_TYPES
+from utils.helpers import validateUnique
 
 
 class Command(BaseCommand):

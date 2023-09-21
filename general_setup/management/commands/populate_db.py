@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from general_setup.models.Job import Job
 
-from utilities.constants import JOBS
-from utilities.helpers import validateUnique
+from utils.constants import JOBS
+from utils.helpers import validateUnique
 
 
 class Command(BaseCommand):
