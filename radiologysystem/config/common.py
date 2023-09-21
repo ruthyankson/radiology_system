@@ -44,7 +44,7 @@ APPS = [
     # 'all_staff',
     # 'administration',
     # 'radiology',
-    # 'patients',
+    'patients',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS

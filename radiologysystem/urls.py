@@ -23,11 +23,14 @@ from django.conf.urls import handler404
 from utils.constants import APP_NAME
 
 urlpatterns = [
-    path(f'{APP_NAME}/admin/', admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
+    path(f'{APP_NAME}/admin/', admin.site.urls),    
+    path(f'{APP_NAME}/patients/', include('patients.urls')),
 
     path('general_setup/', include('general_setup.urls')),
     path('facility/', include('facility.urls')),
+
+    
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 

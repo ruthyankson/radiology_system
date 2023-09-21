@@ -22,5 +22,8 @@ class Room(ActivatorModel, TimeStampedModel, MyModel):
     machine = models.ForeignKey(Machine, on_delete=models.CASCADE)
     activate_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+            return self.examination
+
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

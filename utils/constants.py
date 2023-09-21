@@ -84,6 +84,35 @@ YES_NO = [(YES, 'Yes'),
           (NO, 'No')
           ]
 
+# Imaging Record
+NON_REPEATED_EXAMINATION = 'NRE'
+REPEATED_EXAMINATION = 'RE'
+EXAMINATION_REPEAT_TYPE = [
+    (NON_REPEATED_EXAMINATION, "Non-Repeated Examination"),
+    (REPEATED_EXAMINATION, "Repeated Examination")
+]
+AEC = 'AEC'
+MANUAL_SETUP = 'Manual'
+PATIENT_SETUP_TYPES = [
+    (AEC, "AEC"),
+    (MANUAL_SETUP, "Manual")
+]
+
+# General Statuses
+PENDING = 'Pending'
+COMPLETED = 'Completed'
+DONE = 'Done'
+UNDONE = 'Undone'
+APPROVED = 'Approved'
+REJECTED = 'Rejected'
+ACCEPTED = 'Accepted'
+
+# Acquired Image Status
+ACQUIRED_IMAGE_STATUS = [
+    (ACCEPTED, "Accepted"),
+    (REJECTED, "Rejected")
+]
+
 # Maximum length for certain fields
 MAX_TITLE_LENGTH = 100
 MAX_DESCRIPTION_LENGTH = 500
