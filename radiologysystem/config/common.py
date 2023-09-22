@@ -35,8 +35,8 @@ THIRD_PARTY_APPS = [
 ]
 
 APPS = [
-    # 'launch',
-    # 'accounts',
+    'launch',
+    'account',
     'general_setup',
     # 'dashboard',
     'facility',
@@ -45,6 +45,8 @@ APPS = [
     # 'administration',
     # 'radiology',
     'patients',
+    'task_assignment',
+    'reject_analysis',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS

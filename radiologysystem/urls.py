@@ -22,9 +22,19 @@ from django.conf.urls import handler404
 
 from utils.constants import APP_NAME
 
+
+# Django admin header customization
+
+admin.site.site_header = "Perric Radiological System"
+admin.site.site_title = "Perric Radiological System"
+
 urlpatterns = [
+    path(f'{APP_NAME}/', include('launch.urls')),
     path(f'{APP_NAME}/admin/', admin.site.urls),    
     path(f'{APP_NAME}/patients/', include('patients.urls')),
+    path(f'{APP_NAME}/task_assignment/', include('task_assignment.urls')),
+    path(f'{APP_NAME}/reject_analysis/', include('reject_analysis.urls')),
+    path(f'{APP_NAME}/account/', include('account.urls')),
 
     path('general_setup/', include('general_setup.urls')),
     path('facility/', include('facility.urls')),

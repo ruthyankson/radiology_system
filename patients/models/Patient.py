@@ -13,18 +13,18 @@ class Patient(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name = "patient"
         verbose_name_plural = "patients"
 
-    staff = models.ForeignKey(User, on_delete=models.CASCADE)
     hospital_number = models.CharField(max_length=255)
     patient_type = models.CharField(max_length=50, choices=PATIENT_TYPES)
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField(null=True)
     age = models.IntegerField(null=True)
     gender = models.CharField(max_length=50, choices=GENDER)
-    pregnant = models.CharField(max_length=50, choices=YES_NO, null=True)
+    pregnant = models.CharField(max_length=50, choices=YES_NO, null=True, blank=True)
     contact = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
 
     activate_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

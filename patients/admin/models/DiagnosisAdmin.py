@@ -9,4 +9,9 @@ class DiagnosisAdmin(admin.ModelAdmin):
     exclude = ["id", "status", "deactivate_date"]
     # form = DiagnosisFormAdmin
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
+
+
 admin.site.register(Diagnosis, DiagnosisAdmin)

@@ -16,11 +16,11 @@ class AcquiredImageStatus(ActivatorModel, TimeStampedModel, MyModel):
 
     imaging_record = models.ForeignKey(ImagingRecord, on_delete=models.CASCADE)
     approval_date = models.DateTimeField(null=True)
-    staff = models.ForeignKey(User, on_delete=models.CASCADE)
     radiology_staff_id = models.CharField(max_length=255)
     image_status = models.CharField(max_length=50, choices=ACQUIRED_IMAGE_STATUS)
     
     activate_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.imaging_record)

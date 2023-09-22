@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if data %}
+        <div style="margin: 200px 200px 0px 200px; text-align: center;">
+            <h4>Reject-Accept Rate Table</h4>
+            <table class="table table-success table-borderless">
+                <thead>
+                    <tr>
+                        <th>Reject Rate</th>
+                        <th>Accept Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        {% for item in data %}
+
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

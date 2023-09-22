@@ -21,13 +21,14 @@ class Diagnosis(ActivatorModel, TimeStampedModel, MyModel):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     study_date = models.DateTimeField()
     ward = models.CharField(max_length=255, null=True)
-    requesting_physician = models.ForeignKey(User, on_delete=models.CASCADE)
+    requesting_physician = models.CharField(max_length=255, null=True)
     examination = models.ManyToManyField(ExaminationType)
     technique = RichTextField()
     findings = RichTextField()
     impressions = RichTextField()
     
     activate_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.patient)

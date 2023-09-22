@@ -17,12 +17,12 @@ class PatientNote(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name_plural = "patient notes"
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    staff = models.ForeignKey(User, on_delete=models.CASCADE)
     note_date = models.DateTimeField()
     note_title = models.CharField(max_length=255, null=True)
     note = RichTextField()
     
     activate_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.patient)

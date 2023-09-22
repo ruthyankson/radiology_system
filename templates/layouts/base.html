@@ -1,0 +1,28 @@
+{% load static %}
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reject Analysis</title>
+
+      <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}" />
+
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+<!--     responsive style -->
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <div class="content">
+        <div class="main-content">
+            <!-- Main content of your app goes here -->
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
+

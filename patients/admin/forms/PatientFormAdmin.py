@@ -26,13 +26,6 @@ class PatientFormAdmin(forms.ModelForm):
                                           'class': 'form-control'
                                       }))
 
-    # date_of_birth = forms.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
-    #                            widget=forms.DateInput(
-    #                                attrs={
-    #                                    'placeholder': 'YYYY-mm-dd',
-    #                                    'class': 'form-control'
-    #                                }))
-
     age = forms.IntegerField(widget=forms.NumberInput(attrs={
                                           'placeholder': 'Age',
                                           'class': 'form-control'
@@ -40,7 +33,7 @@ class PatientFormAdmin(forms.ModelForm):
 
     gender = forms.ChoiceField(widget=forms.RadioSelect, choices=GENDER)
 
-    pregnant = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO)
+    pregnant = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO, required=False)
 
     contact = forms.CharField(max_length=255, required=True,
                                       widget=forms.TextInput(attrs={

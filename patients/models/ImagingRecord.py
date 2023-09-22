@@ -21,7 +21,6 @@ class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     record_date = models.DateTimeField()
-    staff = models.ForeignKey(User, on_delete=models.CASCADE)
     radiology_staff_id = models.CharField(max_length=255)
     examination_room = models.ForeignKey(Room, on_delete=models.CASCADE)
     examination_repeat_type = models.CharField(max_length=50, choices=EXAMINATION_REPEAT_TYPE)
@@ -36,6 +35,7 @@ class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
     dose_length_product = models.CharField(max_length=255, default='N/A')
 
     activate_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.patient)
