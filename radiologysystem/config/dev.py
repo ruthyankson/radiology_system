@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # DEBUG = False
+# PRODUCTION = False
 DEBUG = os.environ.get("DEBUG")
 PRODUCTION = os.environ.get("PRODUCTION")
 SECRET_KEY = os.environ.get("SECRET_KEY")

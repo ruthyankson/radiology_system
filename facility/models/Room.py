@@ -23,7 +23,7 @@ class Room(ActivatorModel, TimeStampedModel, MyModel):
     activate_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-            return self.examination
+            return str(self.examination)
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

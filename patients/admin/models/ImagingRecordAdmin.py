@@ -5,7 +5,9 @@ from patients.admin.forms.ImagingRecordFormAdmin import ImagingRecordFormAdmin
 
 class ImagingRecordAdmin(admin.ModelAdmin):
     list_display = ("patient", "examination_room", "record_date", "radiology_staff_id",)
-    search_fields = ["patient", "examination_room"]
+    search_fields = ["patient__name", "setup_type", "examination_type__type_name",
+                     "examination_repeat_type", "radiology_staff_id", "examination_room__examination__examination"]
+    list_per_page = 15
     fields = ["patient", "record_date", "radiology_staff_id",
               ("examination_room", "examination_repeat_type"),
               ("examination_type", "setup_type"),

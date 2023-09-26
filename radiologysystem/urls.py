@@ -20,13 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
 
-from utils.constants import APP_NAME
+from utils.constants import APP_NAME, SYSTEM_NAME
 
 
 # Django admin header customization
 
-admin.site.site_header = "Perric Radiological System"
-admin.site.site_title = "Perric Radiological System"
+admin.site.site_header = SYSTEM_NAME
+admin.site.site_title = SYSTEM_NAME
 
 urlpatterns = [
     path(f'{APP_NAME}/', include('launch.urls')),
@@ -34,7 +34,7 @@ urlpatterns = [
     path(f'{APP_NAME}/patients/', include('patients.urls')),
     path(f'{APP_NAME}/task_assignment/', include('task_assignment.urls')),
     path(f'{APP_NAME}/reject_analysis/', include('reject_analysis.urls')),
-    path(f'{APP_NAME}/account/', include('account.urls')),
+    path(f'{APP_NAME}/accounts/', include('accounts.urls')),
 
     path('general_setup/', include('general_setup.urls')),
     path('facility/', include('facility.urls')),
@@ -44,6 +44,10 @@ urlpatterns = [
 ]
 
 
-# if not settings.PRODUCTION:
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if not settings.PRODUCTION:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+handler404 = 'extraneous.views.error_404_view'

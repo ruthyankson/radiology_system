@@ -27,7 +27,7 @@ class Patient(ActivatorModel, TimeStampedModel, MyModel):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return (str(self.id))[0:5] + " " + self.name
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

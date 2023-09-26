@@ -13,8 +13,8 @@ class Machine(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name_plural = "machines"
 
     machine_name = models.CharField(max_length=255, unique=True)
-    description = models.TextField(max_length=500, blank=True)
-    machine_image = models.ImageField(null=True, upload_to='images/')
+    description = models.TextField(max_length=500, null=True, blank=True)
+    machine_image = models.ImageField(null=True, blank=True, upload_to='images/')
     activate_date = models.DateTimeField(auto_now=True)
 
     def image_tag(self):  # new

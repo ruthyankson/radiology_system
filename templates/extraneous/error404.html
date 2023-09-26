@@ -1,0 +1,13 @@
+{% extends 'layouts/ext_base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="centered">
+    <img src="{% static 'assets/images/notFound.png' %}" alt="Page not found">
+
+    <h1>Page Not Found</h1>
+    <p>Back to <a href="{% url 'launch:welcome' %}" >Safety</a> </p>
+</div>
+{% endblock %}
+

@@ -36,11 +36,11 @@ THIRD_PARTY_APPS = [
 
 APPS = [
     'launch',
-    'account',
+    'accounts',
     'general_setup',
     # 'dashboard',
     'facility',
-    # 'extraneous',
+    'extraneous',
     # 'all_staff',
     # 'administration',
     # 'radiology',

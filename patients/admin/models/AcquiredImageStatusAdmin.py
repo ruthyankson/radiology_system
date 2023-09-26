@@ -4,7 +4,7 @@ from patients.models.AcquiredImageStatus import AcquiredImageStatus
 
 class AcquiredImageStatusAdmin(admin.ModelAdmin):
     list_display = ("imaging_record", "radiology_staff_id", "image_status", "approval_date")
-    search_fields = ["imaging_record", "radiology_staff_id", "image_status"]
+    search_fields = ["imaging_record__patient__name", "radiology_staff_id", "image_status"]
     fields = ("imaging_record", "radiology_staff_id", "image_status", "approval_date")
 
     def save_model(self, request, obj, form, change):

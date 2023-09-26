@@ -1,0 +1,30 @@
+{% load static %}
+<!-- main_base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reject Analysis</title>
+
+      <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}" />
+    <!-- progress barstle -->
+<!--    <link rel="stylesheet" href="{% static 'assets/css/css-circular-prog-bar.css' %}">-->
+    <!-- fonts style -->
+<!--    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">-->
+    <!-- font awesome stylesheet -->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' %}">-->
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+<!--    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" />-->
+
+
+</head>
+<body>
+    <div id="main_content">
+        <!-- Content of the specific page goes here -->
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

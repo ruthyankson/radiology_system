@@ -1,4 +1,4 @@
-from account.views.SignedOutView import SignedOutView
+from accounts.views.SignedOutView import SignedOutView
 from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 # from django.contrib.auth import logout
