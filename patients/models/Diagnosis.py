@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
 from utils.constants import PATIENT_TYPES, GENDER, YES_NO
@@ -12,6 +12,9 @@ from ckeditor.fields import RichTextField
 from patients.models.Patient import Patient
 
 from general_setup.models.ExaminationType import ExaminationType
+
+
+User = get_user_model()
 
 class Diagnosis(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:

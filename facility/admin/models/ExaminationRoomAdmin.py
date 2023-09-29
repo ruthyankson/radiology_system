@@ -8,5 +8,8 @@ class ExaminationRoomAdmin(admin.ModelAdmin):
     form = ExaminationRoomFormAdmin
     search_fields = ['examination']
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
 
 admin.site.register(ExaminationRoom, ExaminationRoomAdmin)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Count
 
 from utils.matplotbase import get_plot, get_bar_chart, get_pie_chart
-from utils.filters import total_examinations, total_acquired_images
+# from helpfuls.filters import total_examinations, total_acquired_images
 
 # Global variables
 
@@ -16,13 +16,13 @@ from utils.filters import total_examinations, total_acquired_images
 #     return render(request, 'tables/factor_exam.html', {'data': data})
 
 def reject_accept_rate_view(request):
-    if total_acquired_images != 0:
-        reject_rate = (total_reject / total_items) * 100
-        accept_rate = (total_accept / total_items) * 100
-    else:
+    # if total_acquired_images != 0:
+    #     reject_rate = (total_reject / total_items) * 100
+    #     accept_rate = (total_accept / total_items) * 100
+    # else:
         # reject_rate = total_counts['total']
-        reject_rate = total_examinations
-        accept_rate = 55.0
+    reject_rate = 0
+    accept_rate = 55.0
     data = [reject_rate, accept_rate]
     return render(request, 'tables/reject_accept_rate.html', {'data': data})
 

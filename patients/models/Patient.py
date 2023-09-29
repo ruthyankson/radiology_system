@@ -1,12 +1,14 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
 from utils.constants import PATIENT_TYPES, GENDER, YES_NO
 
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
+
+User = get_user_model()
 
 class Patient(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:

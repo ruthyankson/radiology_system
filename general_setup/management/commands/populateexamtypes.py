@@ -14,7 +14,7 @@ class Command(BaseCommand):
         for item in EXAMINATION_TYPES:
             is_unique = validateUnique('general_setup.ExaminationType', 'type_name', item)
             if is_unique:
-                ExaminationType.objects.create(type_name=item)
+                ExaminationType.objects.create(type_name=item, created_by=User.objects.get(pk=1))
             else:
                 self.stdout.write(self.style.ERROR('Examination type already exists'))
         return self.stdout.write(self.style.SUCCESS('Successfully populated the database'))

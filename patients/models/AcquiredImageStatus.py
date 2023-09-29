@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
 from utils.constants import ACQUIRED_IMAGE_STATUS
@@ -8,6 +8,9 @@ from utils.constants import ACQUIRED_IMAGE_STATUS
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
 from patients.models.ImagingRecord import ImagingRecord
+
+
+User = get_user_model()
 
 class AcquiredImageStatus(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:

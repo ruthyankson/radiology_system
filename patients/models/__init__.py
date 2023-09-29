@@ -5,6 +5,7 @@ from patients.models.Diagnosis import Diagnosis
 from patients.models.ImagingRecord import ImagingRecord
 from patients.models.AcquiredImageStatus import AcquiredImageStatus
 from patients.models.ImageRejectReasons import ImageRejectReasons
+from patients.models.ImageRequestApproval import ImageRequestApproval
 
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     ImagingRecord,
     AcquiredImageStatus,
     ImageRejectReasons,
+    ImageRequestApproval,
 ]

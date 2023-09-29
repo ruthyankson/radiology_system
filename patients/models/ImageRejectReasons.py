@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
 from utils.constants import ACQUIRED_IMAGE_STATUS
@@ -11,6 +11,9 @@ from patients.models.AcquiredImageStatus import AcquiredImageStatus
 
 from general_setup.models.RejectFactor import RejectFactor
 from general_setup.models.RejectSubFactor import RejectSubFactor
+
+
+User = get_user_model()
 
 class ImageRejectReasons(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:

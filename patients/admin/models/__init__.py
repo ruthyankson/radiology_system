@@ -5,6 +5,7 @@ from patients.admin.models.DiagnosisAdmin import DiagnosisAdmin
 from patients.admin.models.ImagingRecordAdmin import ImagingRecordAdmin
 from patients.admin.models.AcquiredImageStatusAdmin import AcquiredImageStatusAdmin
 from patients.admin.models.ImageRejectReasonsAdmin import ImageRejectReasonsAdmin
+from patients.admin.models.ImageRequestApprovalAdmin import ImageRequestApprovalAdmin
 
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     ImagingRecordAdmin,
     AcquiredImageStatusAdmin,
     ImageRejectReasonsAdmin,
+    ImageRequestApprovalAdmin,
 ]

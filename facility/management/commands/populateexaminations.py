@@ -14,7 +14,7 @@ class Command(BaseCommand):
         for item in EXAMINATIONS:
             is_unique = validateUnique('facility.ExaminationRoom', 'examination', item)
             if is_unique:
-                modelHere.objects.create(examination=item)
+                modelHere.objects.create(examination=item, created_by=User.objects.get(pk=1))
             else:
                 self.stdout.write(self.style.ERROR('Examination already exists'))
         return self.stdout.write(self.style.SUCCESS('Successfully populated the database'))

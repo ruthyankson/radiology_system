@@ -105,6 +105,7 @@ COMPLETED = 'Completed'
 DONE = 'Done'
 UNDONE = 'Undone'
 APPROVED = 'Approved'
+UNAPPROVED = 'Unapproved'
 REJECTED = 'Rejected'
 ACCEPTED = 'Accepted'
 
@@ -112,6 +113,16 @@ ACCEPTED = 'Accepted'
 ACQUIRED_IMAGE_STATUS = [
     (ACCEPTED, "Accepted"),
     (REJECTED, "Rejected")
+]
+
+TASK_STATUS = [
+    (PENDING, PENDING),
+    (COMPLETED, COMPLETED)
+]
+
+IMAGE_REQUEST_APPROVAL = [
+    (APPROVED, APPROVED),
+    (UNAPPROVED, UNAPPROVED)
 ]
 
 # Maximum length for certain fields

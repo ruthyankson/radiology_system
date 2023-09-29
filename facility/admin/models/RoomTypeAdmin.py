@@ -8,5 +8,8 @@ class RoomTypeAdmin(admin.ModelAdmin):
     form = RoomTypeFormAdmin
     search_fields = ['type_of_room']
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
 
 admin.site.register(RoomType, RoomTypeAdmin)

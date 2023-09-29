@@ -14,7 +14,7 @@ class Command(BaseCommand):
         for job in JOBS:
             is_unique = validateUnique('general_setup.Job', 'job_description', job)
             if is_unique:
-                Job.objects.create(job_description=job)
+                Job.objects.create(job_description=job, created_by=User.objects.get(pk=1))
             else:
                 self.stdout.write(self.style.ERROR('Job description already exists'))
         return self.stdout.write(self.style.SUCCESS('Successfully populated the database'))

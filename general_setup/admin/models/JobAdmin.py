@@ -11,4 +11,8 @@ class JobAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
+
 admin.site.register(Job, JobAdmin)

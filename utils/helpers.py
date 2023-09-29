@@ -15,6 +15,17 @@ def get_user(request):
         # Handle the case when the user is not logged in
         return HttpResponse('User is not logged in')
 
+def to_list(value):
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    if isinstance(value, (str, bytes)):
+        return [value]
+    if hasattr(value, '__iter__'):  # Checks if value is iterable
+        return list(value)
+    return [value]
+
 
 def validateUnique(model_name, field_name, value):
     try:

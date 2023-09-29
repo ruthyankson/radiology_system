@@ -14,7 +14,7 @@ class Command(BaseCommand):
         for item in REJECT_FACTORS:
             is_unique = validateUnique('general_setup.RejectFactor', 'factor', item)
             if is_unique:
-                RejectFactor.objects.create(factor=item)
+                RejectFactor.objects.create(factor=item, created_by=User.objects.get(pk=1))
             else:
                 self.stdout.write(self.style.ERROR('Factor already exists'))
         return self.stdout.write(self.style.SUCCESS('Successfully populated the database'))

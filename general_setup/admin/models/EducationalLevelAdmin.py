@@ -11,5 +11,9 @@ class EducationalLevelAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
+
 admin.site.register(EducationalLevel, EducationalLevelAdmin)
 

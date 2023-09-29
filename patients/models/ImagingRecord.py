@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
 from utils.constants import EXAMINATION_REPEAT_TYPE, PATIENT_SETUP_TYPES
@@ -13,6 +13,8 @@ from facility.models.Room import Room
 
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
+
+User = get_user_model()
 
 class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:
