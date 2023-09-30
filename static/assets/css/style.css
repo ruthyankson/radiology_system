@@ -2,28 +2,45 @@
     text-align: center;
 }
 
+.main_margin_top {
+    margin-top: 120px;
+}
+
 .lauch_heading {
-	color: white;
+	color: #ffffff;
+	/* -webkit-text-stroke: 1px #000008; */
 	-webkit-text-stroke: 1px #F8F8F8;
 	text-shadow: 0px 1px 4px #23430C;
 }
 
-.margin_side {
+.blue_word {
+    color: #0074cc
+}
+
+.white_word {
+    color: white;
+}
+
+.grey_word {
+    color: #484e53;
+}
+
+/* .margin_side {
     margin-top: 200px;
     margin-left: 200px;
     margin-right: 200px;
-}
+} */
 
 .spacer {
     margin-top: 200px;
 }
 
 .spacer_one {
-    margin-top: 150px;
+    margin-top: 40px;
 }
 
-.space {
-    margin-top: 30px;
+.spacer_two {
+    margin-top: 20px;
 }
 
 .bg-gradient-overlay {

@@ -20,21 +20,21 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
 
-from utils.constants import APP_NAME, SYSTEM_NAME
+from utils.constants import APP_NAME, APP_NAME_URL
 
 
 # Django admin header customization
 
-admin.site.site_header = SYSTEM_NAME
-admin.site.site_title = SYSTEM_NAME
+admin.site.site_header = APP_NAME
+admin.site.site_title = APP_NAME
 
 urlpatterns = [
-    path(f'{APP_NAME}/', include('launch.urls')),
-    path(f'{APP_NAME}/admin/', admin.site.urls),    
-    path(f'{APP_NAME}/patients/', include('patients.urls')),
-    path(f'{APP_NAME}/task_assignment/', include('task_assignment.urls')),
-    path(f'{APP_NAME}/reject_analysis/', include('reject_analysis.urls')),
-    path(f'{APP_NAME}/accounts/', include('accounts.urls')),
+    path(f'{APP_NAME_URL}/', include('launch.urls')),
+    path(f'{APP_NAME_URL}/admin/', admin.site.urls),
+    path(f'{APP_NAME_URL}/patients/', include('patients.urls')),
+    path(f'{APP_NAME_URL}/task_assignment/', include('task_assignment.urls')),
+    path(f'{APP_NAME_URL}/reject_analysis/', include('reject_analysis.urls')),
+    path(f'{APP_NAME_URL}/accounts/', include('accounts.urls')),
 
     path('general_setup/', include('general_setup.urls')),
     path('facility/', include('facility.urls')),

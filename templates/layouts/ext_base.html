@@ -4,21 +4,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reject Analysis</title>
-
+    
+    <title>{{ app_name }}</title>
       <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}" />
-    <!-- progress barstle -->
-<!--    <link rel="stylesheet" href="{% static 'assets/css/css-circular-prog-bar.css' %}">-->
-    <!-- fonts style -->
-<!--    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">-->
-    <!-- font awesome stylesheet -->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' %}">-->
-    <!-- Custom styles for this template -->
-    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <!-- custom style -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
     <!-- responsive style -->
-<!--    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" />-->
-
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/responsive.css' %}"/>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/all.css' %}" />
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+    {% block extra_css %}{% endblock %}
 
 </head>
 <body>
@@ -26,5 +23,9 @@
         <!-- Content of the specific page goes here -->
         {% block content %}{% endblock %}
     </div>
+    
+    {% block extra_js %}{% endblock %}
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/all.js' %}"></script>
 </body>
 </html>

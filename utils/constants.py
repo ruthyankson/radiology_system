@@ -1,8 +1,8 @@
 # constants.py
 
 # App name
-APP_NAME = "perric-radiological-system-tbh"
-SYSTEM_NAME = "Perric Radiological System"
+APP_NAME_URL = "perric-radiological-system-tbh"
+APP_NAME = "Perric Radiological System"
 
 # Status options for a model
 STATUS_ACTIVE = 'active'

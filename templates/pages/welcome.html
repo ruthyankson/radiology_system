@@ -2,18 +2,23 @@
 
 {% load static %}
 
+{% comment %} {% block extra_css %}
+    <!-- custom style -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+{% endblock %} {% endcomment %}
+
 {% block content %}
-<div class="centered" >
-    <div style="margin-top: 120px"></div>
-    <h2>Perric Radiological System</h2>
-    <h4><span style="color: #00008b;">Utilizing Reject Analysis to improve Radiology</span></h4>
-    <div class="space"></div>
-    <img width="250px" src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital">
-    <div class="space"></div>
-    <h5><span style="color: #00008b;">Welcome</span>, enjoy your time with the system today.</h5>
-    <div class="space"></div>
-    <a class="btn btn-secondary btn-lg mr-2" role="button" href="{% url 'admin:login' %}" style="width: 120px">Admin</a>
-    <a class="btn btn-primary btn-lg" role="button" href="{% url 'accounts:sign_in' %}" style="width: 120px">Staff</a>
-</div>
+    <div class="centered main_margin_top">
+        <h2 class="lauch_heading">{{ app_name }}</h2>
+        <div class="spacer_two"></div>
+        <h4 class="blue_word">Utilizing Reject Analysis to improve Radiology</h4>
+        <div class="spacer_one"></div>
+        <img width="250px" src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital">
+        <div class="spacer_one"></div>
+        <h5><span class="blue_word">Welcome</span> <span class="grey_word">,enjoy your time with the system today.</span></h5>
+        <div class="spacer_one"></div>
+        <a class="btn btn-secondary btn-lg mr-2" role="button" href="{% url 'admin:login' %}" style="width: 120px">Admin</a>
+        <a class="btn btn-primary btn-lg" role="button" href="{% url 'accounts:sign_in' %}" style="width: 120px">Staff</a>
+    </div>
 {% endblock %}
 
