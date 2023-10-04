@@ -1,16 +1,62 @@
-{% extends "layouts/base.html" %}
+{% extends 'layouts/main_base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        form p label {
+            color: #002857;
+            font-weight: 500;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    {% if form.errors %}
-        <p class="error">Please correct the errors above.</p>
-    {% endif %}
-    {% if next %}
-        <input type="hidden" name="next" value="{{ next }}">
-    {% endif %}
+    <!--Navigation bar-->
+    <nav class="navbar navbar-expand-lg bg-primary login-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'launch:welcome' %}">
+                <img src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital" width="50" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+            </button>
+            <div class="app-name">
+                {{ app_name }}
+            </div>
+            <div class="collapse navbar-collapse justify-content-end login-nav" id="navbarSupportedContent">
+                <ul class="navbar-nav  me-5 mb-2 mb-lg-0">
+                    <li class="nav-item">                        
+                        <a class="nav-link" aria-current="page" href="{% url 'launch:welcome' %}">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back
+                        </a>
+                    </li>                
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!--End of Navigation bar-->
+    <div class="spacer_three"></div>
+    <div class="enclosure">
+        <div class="wrapper">
+            <div class="form-box login">
+                <h2 class="centered">Login</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                    {% if form.errors %}
+                        <p class="error">Please correct the errors above.</p>
+                    {% endif %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    {% endif %}           
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

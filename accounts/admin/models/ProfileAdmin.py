@@ -5,6 +5,7 @@ from accounts.admin.forms.ProfileFormAdmin import ProfileFormAdmin
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('designated_staff_id', 'user', 'job_description', 'contact')
+    readonly_fields = ['user']
     form = ProfileFormAdmin
     list_display_links = ('designated_staff_id', 'user')
     search_fields = ['user__name','designated_staff_id', 'job_description', 'gender']

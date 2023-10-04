@@ -7,6 +7,7 @@ class ImageRequestApprovalAdmin(admin.ModelAdmin):
     list_display = ("image_request", "approval")
     search_fields = ["image_request", "approval"]
     fields = ["image_request", "approval"]
+    readonly_fields = ["image_request"]
     form = ImageRequestApprovalFormAdmin
 
     def save_model(self, request, obj, form, change):

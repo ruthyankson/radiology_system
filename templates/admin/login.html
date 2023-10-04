@@ -1,0 +1,105 @@
+{% extends 'layouts/main_base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <!--Navigation bar-->
+    <nav class="navbar navbar-expand-lg bg-primary login-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'launch:welcome' %}">
+                <img src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital" width="50" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+            </button>
+            <div class="app-name">
+                Perric Radiological System
+            </div>
+            <div class="collapse navbar-collapse justify-content-end login-nav" id="navbarSupportedContent">
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+                    <li class="nav-item"><a href="#">{{ app_name }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'launch:welcome' %}">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back
+                        </a>
+                    </li>                
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!--End of Navigation bar-->
+    <div class="spacer_three"></div>
+    <div class="enclosure">
+        <div class="wrapper">
+            <div class="form-box login">
+                <h2 class="centered">Login</h1>
+                <form method="post" action="{% url 'admin:login' %}">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <span class="form-icon"><i class="fa-solid fa-user"></i></span>
+                        <input type="text"
+                            name="{{ form.username.name }}"
+                            id="{{ form.username.id_for_label }}"
+                         required>
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="form-icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" 
+                        name="{{ form.password.name }}"
+                        id="{{ form.password.id_for_label }}"
+                         required>
+                        <label for="{{ form.password.id_for_label }}">Password</label>
+                    </div>
+                    <div class="remember-forgot">
+                        <label for="remember_me">
+                            <input type="checkbox" id="remember_me">Remember me
+                            <a href="#">Forgot password?</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" value="Login">Login</button>
+                    <div class="login-register">
+                        <p>Don't have an account: <a class="register-link" href="#">Register</a></p>
+                    </div>
+                </form>
+        
+            </div>
+            <div class="form-box register">
+                <h2 class="centered">Registration</h1>
+                <form method="post" action="{% url 'admin:login' %}">
+                    <div class="input-box">
+                        <span class="form-icon"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" id="username_reg" required>
+                        <label for="username_reg">Username</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" id="email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="form-icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="password_reg" required>
+                        <label for="password_reg">Password</label>
+                    </div>
+                    <div class="remember-forgot">
+                        <label for="terms">
+                            <input type="checkbox" id="terms">
+                            I agree to the 
+                            <a href="#">terms & conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                    <div class="login-register">
+                        <p>Already have an account: <a class="login-link" href="#">Login</a></p>
+                    </div>
+                </form>
+        
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

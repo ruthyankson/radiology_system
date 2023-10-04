@@ -1,0 +1,23 @@
+#header {
+    color: rgb(210, 220, 249);
+    background: #002857;
+}
+
+#branding h1 {
+    color: rgb(210, 220, 249);
+}
+
+.theme-toggle svg.theme-icon-when-auto, .theme-toggle svg.theme-icon-when-dark, .theme-toggle svg.theme-icon-when-light {
+    fill: var(--header-link-color);
+    color: #002857;
+}
+
+div.breadcrumbs {
+    background: #0074cc;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #0074cc;
+}
+
+

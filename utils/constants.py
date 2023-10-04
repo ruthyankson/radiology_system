@@ -3,6 +3,9 @@
 # App name
 APP_NAME_URL = "perric-radiological-system-tbh"
 APP_NAME = "Perric Radiological System"
+BRAND_NAME = "TBH"
+BRAND_NAME1 = "PRS_TBH"
+BRAND_NAME3 = "PRS"
 
 # Status options for a model
 STATUS_ACTIVE = 'active'

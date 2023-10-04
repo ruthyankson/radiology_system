@@ -16,6 +16,7 @@ class ImagingRecordAdmin(admin.ModelAdmin):
               ("current", "radiation_time"),
               ("dose_area_product", "dose_length_product")
               ]
+    readonly_fields = ["patient"]
     form = ImagingRecordFormAdmin
 
     def save_model(self, request, obj, form, change):

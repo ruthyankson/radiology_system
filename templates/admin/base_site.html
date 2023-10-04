@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %}
+
+{% load static %}
+
+
+{% block extrastyle %}
+    <!-- custom style -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_styles.css' %}" />
+{% endblock %}
+
+{% block branding %}
+    <h1 id="head">
+        <img src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital" width="50" height="50">
+        <span class="app-name">
+            Perric Radiological System
+        </span>
+    </h1>
+{% endblock %}
+
+
+
+{% block extrahead %}
+    {{ block.super }}    
+    <script type="text/javascript" src="{% static 'assets/js/admin_js.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap.js' %}"></script>
+{% endblock %}

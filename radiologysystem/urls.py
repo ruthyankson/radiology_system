@@ -26,7 +26,8 @@ from utils.constants import APP_NAME, APP_NAME_URL
 # Django admin header customization
 
 admin.site.site_header = APP_NAME
-admin.site.site_title = APP_NAME
+# admin.site.site_title = APP_NAME
+# admin.site.index_title = APP_NAME + " Administration"
 
 urlpatterns = [
     path(f'{APP_NAME_URL}/', include('launch.urls')),

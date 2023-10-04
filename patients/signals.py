@@ -7,8 +7,5 @@ image_request = ImageRequest
 
 @receiver(post_save, sender=image_request)
 def create_image_request_approval(sender, instance, created, **kwargs):
-    print("Sender --> ", sender)
-    print("Instance -->", instance)
-    print("Created --> ", created)
     if created:
         ImageRequestApproval.objects.create(image_request=instance)

@@ -1,6 +1,10 @@
 from django.contrib import admin
 from general_setup.models.Job import Job
 from general_setup.admin.forms.JobFormAdmin import JobFormAdmin
+from django.contrib.sites.models import Site
+
+# Unregister the Site model from the default admin site
+admin.site.unregister(Site)
 
 
 class JobAdmin(admin.ModelAdmin):

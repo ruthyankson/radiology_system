@@ -7,6 +7,7 @@ from helpfuls.filters import rejected_images
 class ImageRejectReasonsAdmin(admin.ModelAdmin):
     list_display = ("acquired_image_status", "radiology_staff_id",)
     search_fields = ["acquired_image_status", "radiology_staff_id", "factors__factor", "sub_factors__sub_factor"]
+    readonly_fields = ["acquired_image_status"]
     fields = ("acquired_image_status", "radiology_staff_id", "factors", "sub_factors")
 
     def render_change_form(self, request, context, *args, **kwargs):
