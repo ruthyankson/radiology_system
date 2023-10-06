@@ -16,9 +16,8 @@
         <img width="250px" src="{% static 'assets/images/tbh.png' %}" alt="The Bank Hospital">
         <div class="spacer_one"></div>
         <h5><span class="blue_word">Welcome</span><span class="deep-blue-word">, enjoy your time with the system today.</span></h5>
-        <div class="spacer_one"></div>
-        <a class="btn admin-btn btn-lg mr-2" role="button" href="{% url 'admin:login' %}" style="width: 120px">Admin</a>
-        <a class="btn btn-primary btn-lg" role="button" href="{% url 'accounts:sign_in' %}" style="width: 120px">Staff</a>
+        <div class="spacer_one"></div>        
+        <a class="btn admin-btn btn-lg" role="button" href="{% url 'admin:index' %}" style="width: 170px">Staff</a>
     </div>
 {% endblock %}
 

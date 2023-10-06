@@ -2,6 +2,11 @@ span.brand-text {
     color: #002857;
 }
 
+body.theme-spacelab ul.nav-sidebar .nav-header {
+    color: #002857;
+    font-weight: bold;
+}
+
 /* body.theme-darkly .brand-text {
     word-wrap: break-word !important;
     color: red !important;

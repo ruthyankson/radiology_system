@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
 
-from utils.constants import APP_NAME, APP_NAME_URL
+from utils.constants import APP_NAME, APP_NAME_URL, APP_ROOT_URL
 
 
 # Django admin header customization
@@ -30,12 +30,13 @@ admin.site.site_header = APP_NAME
 # admin.site.index_title = APP_NAME + " Administration"
 
 urlpatterns = [
-    path(f'{APP_NAME_URL}/', include('launch.urls')),
-    path(f'{APP_NAME_URL}/admin/', admin.site.urls),
-    path(f'{APP_NAME_URL}/patients/', include('patients.urls')),
-    path(f'{APP_NAME_URL}/task_assignment/', include('task_assignment.urls')),
-    path(f'{APP_NAME_URL}/reject_analysis/', include('reject_analysis.urls')),
-    path(f'{APP_NAME_URL}/accounts/', include('accounts.urls')),
+    path(f'{APP_ROOT_URL}/', include('launch.urls')),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/', admin.site.urls),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/staff/', include('all_staff.urls')),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/patients/', include('patients.urls')),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/task_assignment/', include('task_assignment.urls')),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/reject_analysis/', include('reject_analysis.urls')),
+    path(f'{APP_ROOT_URL}/{APP_NAME_URL}/accounts/', include('accounts.urls')),
 
     path('general_setup/', include('general_setup.urls')),
     path('facility/', include('facility.urls')),

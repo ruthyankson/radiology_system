@@ -2,6 +2,23 @@
 
 {% load static %}
 
+{% block extra_css %}
+    {{ block.super }} 
+    <!-- custom style -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_styles.css' %}" />
+    <style>
+        ul.errorlist.nonfield, .error {
+            border-left: 2px solid red;
+            color: rgb(91, 0, 0);
+            background-color: rgba(244, 210, 210, .5);
+        }
+        .error {
+            margin-top: 15px;
+            padding-left: 10px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <!--Navigation bar-->
     <nav class="navbar navbar-expand-lg bg-primary login-navbar">
@@ -13,11 +30,10 @@
                 <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
             </button>
             <div class="app-name">
-                Perric Radiological System
+                TBH Radiological QMS
             </div>
             <div class="collapse navbar-collapse justify-content-end login-nav" id="navbarSupportedContent">
                 <ul class="navbar-nav me-5 mb-2 mb-lg-0">
-                    <li class="nav-item"><a href="#">{{ app_name }}</a></li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{% url 'launch:welcome' %}">
                             <i class="fa-solid fa-arrow-left"></i>
@@ -35,9 +51,15 @@
     <div class="enclosure">
         <div class="wrapper">
             <div class="form-box login">
-                <h2 class="centered">Login</h1>
+                <h2 class="centered">Login</h2>               
+                
                 <form method="post" action="{% url 'admin:login' %}">
                     {% csrf_token %}
+                    {% if form.errors %}
+                        <ul class="errorlist nonfield">
+                            <li>Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive.</li>
+                        </ul>
+                    {% endif %}
                     <div class="input-box">
                         <span class="form-icon"><i class="fa-solid fa-user"></i></span>
                         <input type="text"
@@ -54,51 +76,19 @@
                          required>
                         <label for="{{ form.password.id_for_label }}">Password</label>
                     </div>
-                    <div class="remember-forgot">
-                        <label for="remember_me">
-                            <input type="checkbox" id="remember_me">Remember me
-                            <a href="#">Forgot password?</a>
-                        </label>
-                    </div>
+                    
                     <button type="submit" class="btn" value="Login">Login</button>
-                    <div class="login-register">
-                        <p>Don't have an account: <a class="register-link" href="#">Register</a></p>
-                    </div>
+                    
                 </form>
+                {% if form.errors %}
+                    <p class="error">Please correct the errors above.</p>
+                {% endif %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
         
             </div>
-            <div class="form-box register">
-                <h2 class="centered">Registration</h1>
-                <form method="post" action="{% url 'admin:login' %}">
-                    <div class="input-box">
-                        <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" id="username_reg" required>
-                        <label for="username_reg">Username</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="email" id="email" required>
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="form-icon"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="password_reg" required>
-                        <label for="password_reg">Password</label>
-                    </div>
-                    <div class="remember-forgot">
-                        <label for="terms">
-                            <input type="checkbox" id="terms">
-                            I agree to the 
-                            <a href="#">terms & conditions</a>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn">Register</button>
-                    <div class="login-register">
-                        <p>Already have an account: <a class="login-link" href="#">Login</a></p>
-                    </div>
-                </form>
-        
-            </div>
+
         </div>
     </div>
 {% endblock %}

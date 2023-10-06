@@ -33,3 +33,7 @@ class Patient(ActivatorModel, TimeStampedModel, MyModel):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+
+    @property
+    def fields_verbose(self):
+        return dict([ (f.name, f.verbose_name) for f in self._meta.fields + self._meta.many_to_many ])

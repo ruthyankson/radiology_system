@@ -1,11 +1,10 @@
 # constants.py
 
 # App name
-APP_NAME_URL = "perric-radiological-system-tbh"
-APP_NAME = "Perric Radiological System"
-BRAND_NAME = "TBH"
-BRAND_NAME1 = "PRS_TBH"
-BRAND_NAME3 = "PRS"
+APP_ROOT_URL = "app"
+APP_NAME_URL = "tbh-radiological-qms"
+APP_NAME = "TBH Radiological QMS"
+BRAND_NAME = "TBH RQMS"
 
 # Status options for a model
 STATUS_ACTIVE = 'active'

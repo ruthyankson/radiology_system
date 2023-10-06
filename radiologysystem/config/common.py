@@ -43,7 +43,7 @@ APPS = [
     # 'dashboard',
     'facility',
     'extraneous',
-    # 'all_staff',
+    'all_staff',
     # 'administration',
     # 'radiology',
     'patients',
@@ -160,10 +160,7 @@ JAZZMIN_SETTINGS = {
     "site_logo": "assets/images/tbh.png",
 
     # CSS classes that are applied to the logo above
-    # "site_logo_classes": "img-circle",
-
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    # "site_icon": ,
+    "site_logo_classes": "img-circle",
 
     # Welcome text on the login screen
     "welcome_sign": "Welcome " + APP_NAME,
@@ -171,6 +168,31 @@ JAZZMIN_SETTINGS = {
     # Copyright on the footer
     "copyright": APP_NAME,
     "show_ui_builder":True,
+    # Order the auth app before the books app, other apps will be alphabetically placed after these
+    "order_with_respect_to": ["dashboard", "task_assignment", "patients", "facility", "general_setup"],
+
+    # # Keep the same app ordering as above, but also order choice and book model links within the books app
+    # "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+
+    # # Just make sure auth is first
+    # "order_with_respect_to": ["auth"],
+
+    # # Order apps automatically, but make sure choice and book admin links are first within the books app
+    # "order_with_respect_to": ["books.author", "books.book"],
+
+    # # Place our choice model admin link and our custom link first within the books app (Note: custom link name used for order key)
+    # "order_with_respect_to": ["books.author", "Make Messages"],
+
+    # # do nothing
+    # "order_with_respect_to": [],
+
+    # # Still do nothing
+    # "order_with_respect_to": ["doesnt_exist"],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+    },
 }
 
 
