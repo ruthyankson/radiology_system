@@ -22,3 +22,6 @@ document.getElementById('id_date_of_birth').addEventListener('change', function(
     document.getElementById('id_age').value = age;
 });
 
+// $('#myModal').on('shown.bs.modal', function () {
+//     $('#myInput').trigger('focus')
+// })

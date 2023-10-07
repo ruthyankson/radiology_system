@@ -165,7 +165,7 @@ JAZZMIN_SETTINGS = {
     # Welcome text on the login screen
     "welcome_sign": "Welcome " + APP_NAME,
 
-    "related_modal_active": True,
+    # "related_modal_active": True,
 
     # Copyright on the footer
     "copyright": APP_NAME,
