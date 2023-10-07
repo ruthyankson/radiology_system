@@ -11,21 +11,25 @@ from patients.models.Patient import Patient
 
 User = get_user_model()
 
-class Specific(ActivatorModel, TimeStampedModel, MyModel):
+class SpecificNote(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:
         verbose_name = "specific note"
         verbose_name_plural = "specific notes"
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    request_date = models.DateTimeField()
-    ward = models.CharField(max_length=255, null=True)
-    brief_clinical_history = models.TextField(max_length=500)
-    radiological_investigation_requested = models.TextField(max_length=500)
-    medical_officer = models.CharField(max_length=255, null=True)
-    department = models.CharField(max_length=255)
-    radiology_serial_number = models.CharField(max_length=255)
-    previous_exams_details = models.TextField(max_length=500)
-
+    weight = models.FloatField()
+    type_of_procedure = models.CharField(max_length=255)
+    pre_procedure_bp = models.CharField(max_length=255)
+    pulse = models.CharField(max_length=255)
+    start_time_of_exams = models.TimeField(auto_now=True)
+    end_time_of_exams = models.TimeField(auto_now=True)
+    volume_of_contrast = models.CharField(max_length=255)
+    flow_rate = models.CharField(max_length=255)
+    post_procedure_bp = models.CharField(max_length=255)
+    post_pulse = models.CharField(max_length=255)
+    general_comments = models.TextField(max_length=500)
+    note_date = models.DateTimeField(auto_now=True, verbose_name="date")
+    
     activate_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 

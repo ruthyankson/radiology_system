@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 from utils.MyModel import MyModel
+from utils.constants import YES_NO
 
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
@@ -13,15 +14,16 @@ from patients.models.Patient import Patient
 
 User = get_user_model()
 
-class PatientNote(ActivatorModel, TimeStampedModel, MyModel):
+class PatientPostPreparationNote(ActivatorModel, TimeStampedModel, MyModel):
     class Meta:
-        verbose_name = "patient note"
-        verbose_name_plural = "patient notes"
+        verbose_name = "patient post preparation note"
+        verbose_name_plural = "patient post preparation notes"
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    note_title = models.CharField(max_length=255, null=True, verbose_name='title')
-    note = RichTextField()
-    note_date = models.DateTimeField(auto_now=True, verbose_name="date")
+    preparation_confirmation = models.CharField(max_length=50, choices=YES_NO)
+    injection_swelling = models.CharField(max_length=50, choices=YES_NO)
+    staff_signature = models.CharField(max_length=255)
+    preparation_date = models.DateTimeField(auto_now=True)
     
     activate_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)

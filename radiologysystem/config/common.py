@@ -165,11 +165,30 @@ JAZZMIN_SETTINGS = {
     # Welcome text on the login screen
     "welcome_sign": "Welcome " + APP_NAME,
 
+    "related_modal_active": True,
+
     # Copyright on the footer
     "copyright": APP_NAME,
     "show_ui_builder":True,
-    # Order the auth app before the books app, other apps will be alphabetically placed after these
-    "order_with_respect_to": ["dashboard", "task_assignment", "patients", "facility", "general_setup"],
+
+    "order_with_respect_to": [
+        "dashboard", 
+        "task_assignment", 
+        "patients", "patients.patient", "patients.PatientNote", "patients.SpecificNote", 
+        "patients.ImageRequest", "patients.ImageRequestApproval", "patients.ImagingRecord", "patients.ImageRejectReasons", 
+        "facility", "facility.Machine", "facility.MachinePart", 
+        "general_setup"
+        ],
+
+
+    # "custom_links": {
+    #     "books": [{
+    #         "name": "Make Messages", 
+    #         "url": "make_messages", 
+    #         "icon": "fas fa-comments",
+    #         "permissions": ["books.view_book"]
+    #     }]
+    # },
 
     # # Keep the same app ordering as above, but also order choice and book model links within the books app
     # "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
@@ -193,6 +212,10 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
     },
+
+    # Icons that are used when one is not manually specified
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
 }
 
 
