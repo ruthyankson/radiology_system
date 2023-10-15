@@ -4,8 +4,6 @@ from facility.models.Room import Room as modelHere
 # from facility.models.Room import room_types_choices, examinations_choices, machines_choices
 from facility.models.Machine import Machine
 
-from utils.helpers import to_list
-
 # from helpfuls.filters import room_type_choices, examination_choices, machine_choices
 
 from django import forms

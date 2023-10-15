@@ -1,0 +1,385 @@
+.centered {
+    text-align: center;
+}
+
+.main_margin_top {
+    margin-top: 120px;
+}
+
+.space {
+    margin-top: 30px;
+}
+
+.spacer {
+    margin-top: 200px;
+}
+
+.spacer_one {
+    margin-top: 40px;
+}
+
+.spacer_two {
+    margin-top: 20px;
+}
+
+.spacer_three {
+    margin-top: 110px;
+}
+
+.lauch_heading {
+	color: #ffffff;
+	/* -webkit-text-stroke: 1px #000008; */
+	-webkit-text-stroke: 1px #F8F8F8;
+	text-shadow: 0px 1px 4px #002857;
+}
+
+.blue_word {
+    color: #0074cc;
+}
+
+.deep-blue-word {
+    color: #002857;
+}
+
+.white_word {
+    color: white;
+}
+
+.grey_word {
+    color: #484e53;
+}
+
+.navbar .container-fluid .app-name {
+    margin-left: 70px;
+    position: absolute;
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(210, 220, 249);
+}
+
+/* Welcome page */
+.welcome-page .btn.admin-btn {
+    color: rgb(210, 220, 249);
+    background-color: #002857;
+}
+
+.welcome-page .btn.admin-btn:hover {
+    counter-reset: rgb(255, 255, 255);
+    background-color: #00346f;
+}
+
+.navbar .container-fluid {
+    background-color: #002857;
+}
+
+/* .login-nav {
+    background-color: #002857;
+} */
+
+.login-nav ul li a {
+    color:rgb(239, 244, 255);
+}
+
+.login-nav ul li a:hover {
+    color:rgb(210, 220, 249);
+}
+
+.login-navbar .navbar-toggler .navbar-toggler-icon {
+    font-size: 25px;
+    color: #fff;
+}
+
+/* .login-navbar .button.navbar-toggler:active {
+    border: none !important; 
+} */
+
+/* .login-navbar .navbar-toggler:focus {
+    border: none; 
+} */
+
+.navbar-collapse.show{
+    padding-left: 20px;
+    background-color: #002857;
+}
+
+/* Login Form */
+
+
+.enclosure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .enclosure * {
+    margin: 0;
+    padding: 0;
+} */
+
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: 440px;    
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: height .2s ease;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+/* show or hide register/login */
+.wrapper.active {
+    height: 520px;
+}
+
+.wrapper .form-box.login {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.wrapper.active .form-box.login {
+    transition: none;
+    transform: translateX(-400px);
+}
+
+/* Registration Form */
+.wrapper .form-box.register {
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+
+.wrapper.active .form-box.register {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #002857;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #002857;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .form-icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #162938;
+    line-height: 57px;
+} 
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px
+}
+
+.remember-forgot {
+    font-size: .9em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #162938;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #0074CC;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.enclosure .btn {
+    width: 100%;
+    height: 45px;
+    background: #002857;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+.btn:hover {
+    color: rgb(210, 220, 249);
+    text-decoration: none;
+}
+
+.login-register {
+    font-size: .9em;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #0074cc;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+
+.font_sixteen {
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+/* .wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+} */
+
+/* .wrapper .input-box {
+    width: 100%;
+    height: 50px;
+    background: #FF7C9D;
+    margin: 30px 0;
+} */
+
+/* .input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+} */
+
+/* .input-box input::placeholder {
+    color: white;
+} */
+
+
+
+/* .bg-gradient-overlay {
+  background-image: linear-gradient(310deg, #00003b 0%, #00006b 100%);
+}
+
+.password-in {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 0.1ch;
+}
+
+.pass-eye {
+    display: inline;
+    margin-left: 100px;
+    cursor: pointer;
+}
+
+.special-emphasis {
+    color: #5e72e4;
+} */
+
+/* argon input */
+/* input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 0.5rem 20px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    color: #495057;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #d2d6da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: 0.2s ease;
+} */
+
+/* .aligned label {
+    display: none;
+} */
+
+/* CSS Styles for the Sidebar */
+/* .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+} */
+
+/* .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+} */
+
+/* CSS Styles for the Header */
+/* .header {
+    background-color: #0074cc;
+    color: #fff;
+    padding: 20px;
+} */
+
+/* Add more styles for your header content */

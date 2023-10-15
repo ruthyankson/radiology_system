@@ -6,6 +6,8 @@ from patients.models.ImagingRecord import ImagingRecord
 from patients.models.AcquiredImageStatus import AcquiredImageStatus
 from patients.models.ImageRejectReasons import ImageRejectReasons
 from patients.models.ImageRequestApproval import ImageRequestApproval
+from patients.models.SpecificNote import SpecificNote
+from patients.models.PostPreparationNote import PostPreparationNote
 
 
 __all__ = [
@@ -17,4 +19,6 @@ __all__ = [
     AcquiredImageStatus,
     ImageRejectReasons,
     ImageRequestApproval,
+    SpecificNote,
+    PostPreparationNote,
 ]

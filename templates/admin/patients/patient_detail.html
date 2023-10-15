@@ -1,11 +1,19 @@
 {% extends "admin/base.html" %}
 {% load i18n static %}
 
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'assets/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
+
 {% block extrastyle %}
 {{ block.super }}
 <!-- custom style -->
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_styles.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/accordion.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'ckeditor/ckeditor.css' %}" />
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -21,222 +29,593 @@
 {{ block.super }}
 
 <div class="container detail_main">
-    <div class="identity_tag">
-        {{ patient.name }}'s details
-    </div>
     <div class="row">
-        <div class="col align-self-start detail_side">
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.hospital_number }}:</div>
-                <div class="col">{{ patient.hospital_number }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.patient_type }}:</div>
-                <div class="col">{{ patient.patient_type }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.name }}:</div>
-                <div class="col">{{ patient.name }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.date_of_birth }}:</div>
-                <div class="col">{{ patient.date_of_birth | date:'M d, Y' }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.age }}:</div>
-                <div class="col">{{ patient.age }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.gender }}:</div>
-                <div class="col">{{ patient.gender }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.contact }}:</div>
-                <div class="col">{{ patient.contact }} </div>
-            </div>
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.address }}:</div>
-                <div class="col">{{ patient.address }} </div>
-            </div>
-            {% if patient.gender == 'F' %}
-            <div class="row single_detail">
-                <div class="col detail_label">{{ labels.pregnant }}:</div>
-                <div class="col">{{ patient.pregnant }} </div>
-            </div>
-            {% endif %}
+        <div class="col-md-12 mb-4">
+            <button type="button" class="btn btn-primary tab_buttons" id="pat_main">
+                <i class="fas fa-eye mr-2"></i>
+                Main
+            </button>
+            <button type="button" class="btn btn-primary tab_buttons" id="pat_doc">
+                <i class="fas fa-file mr-2"></i>
+                Docs
+            </button>
+            <button type="button" class="btn btn-primary tab_buttons" id="spec_ope">
+                <i class="fas fa-toolbox mr-2"></i>
+                Operations
+            </button>
         </div>
-        <div class="col align-self-start">
-            <div class="title_add">
-                <div class="h5 section_title">General Notes</div>
-                <div class="add_doc_one">
-                    <a href="#"><i class="fas fa-plus"></i>
-                        Add Note
-                    </a>
+    </div>
+    <div id="pat_main_details">
+        <div class="identity_tag">
+            {{ patient.name }}'s details
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-6 align-self-start detail_side_left">
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.hospital_number }}:</div>
+                    <div class="col">{{ patient.hospital_number }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.patient_type }}:</div>
+                    <div class="col">{{ patient.patient_type }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.name }}:</div>
+                    <div class="col">{{ patient.name }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.date_of_birth }}:</div>
+                    <div class="col">{{ patient.date_of_birth | date:'M d, Y' }} </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover" width="100%">
-                <tr>
-                    <th>#</td>
-                    <th>Process</td>
-                    <th>Personnel Involved</td>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Imgaging</td>
-                        <td>Mr. Akutse</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="col-md-6 align-self-start detail_side_right">
+
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.age }}:</div>
+                    <div class="col">{{ patient.age }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.gender }}:</div>
+                    <div class="col">{{ patient.gender }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.contact }}:</div>
+                    <div class="col">{{ patient.contact }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.address }}:</div>
+                    <div class="col">{{ patient.address }} </div>
+                </div>
+                {% if patient.gender == 'F' %}
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.pregnant }}:</div>
+                    <div class="col">{{ patient.pregnant }} </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="row sec_section">
+            <div class="col-md-12">
+                <div class="h5">General Notes</div>
+                <table class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in patient_notes %}
+                        <tr class="general_note_item patient_item" data-item-id="{{ item.id }}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.note_title }}</td>
+                            <td>{{ item.note_date }}</td>
+                            <td><i class="fas fa-eye"></i></td>
+                        </tr>
+                        <tr >
+                            
+                            <td colspan="4">
+                                <div class="container">
+                                    <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                        <div class="col-md-12">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_title }}:</div>
+                                                <div class="col-md-6">{{ item.note_title }}</div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6 detail_label">{{ general_note_labels.note }}:</div>
+                                                <div class="col-md-6">{{ item.note }}</div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_date }}:</div>
+                                                <div class="col-md-6">{{ item.note_date }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="space">
-        <!-- Button to open the modal -->
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
-    </div>
-
-    <div class="sub_sections">
-        <div class="h5 section_title">
-            Sub Details
-        </div>
-        <div class="accordion" id="accordionPanelsStayOpen">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseOne">
-                        Radiologist / Radiographer Notes
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        <div class="add_doc">
-                            <div class="add_doc">
-                                <a href="#"><i class="fas fa-plus"></i>
-                                    Add Note
-                                </a>
+    <div id="docs_details" style="display: none;">   
+        <div class="identity_tag">
+            <div class="h5">{{ patient.name }}'s Documents</div>
+        </div>     
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion" id="accordionPanelsStayOpen">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                Approvals
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                            aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                Some approvals
                             </div>
                         </div>
-                        <table class="table table-striped table-hover" width="100%">
-                            <tr>
-                                <th>#</td>
-                                <th>Process</td>
-                                <th>Personnel Involved</td>
-                            </tr>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Imgaging</td>
-                                    <td>Mr. Akutse</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-                </div>
-            </div>
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseThree">
-                        Diagnoses
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingThree">
-                    <div class="accordion-body">
-                        <div class="add_doc">
-                            <a href="#"><i class="fas fa-plus"></i>
-                                Add Diagnosis
-                            </a>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseFive">
+                                Radiologist / Radiographer Notes
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingFive">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-hover" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</td>
+                                            <th>Process</td>
+                                            <th>Personnel Involved</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Imgaging</td>
+                                            <td>Mr. Akutse</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
-                        <table class="table table-striped table-hover" width="100%">
-                            <tr>
-                                <th>#</td>
-                                <th>Process</td>
-                                <th>Personnel Involved</td>
-                            </tr>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Imgaging</td>
-                                    <td>Mr. Akutse</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
+                                Diagnoses
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-hover" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</td>
+                                            <th>Process</td>
+                                            <th>Personnel Involved</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Imgaging</td>
+                                            <td>Mr. Akutse</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseFour">
+                                Imaging Requests
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingFour">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-hover" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</td>
+                                            <th>Process</td>
+                                            <th>Personnel Involved</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Imgaging</td>
+                                            <td>Mr. Akutse</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                                Imaging Records
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                            </div>
+                            <div class="add_doc">📝</div>
+                            <table class="table table-striped table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</td>
+                                        <th>Process</td>
+                                        <th>Personnel Involved</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Imgaging</td>
+                                        <td>Mr. Akutse</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseSix">
+                                Rejected Images and Reasons
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingSix">
+                            <div class="accordion-body">
+                            </div>
+                            <div class="add_doc">📝</div>
+                            <table class="table table-striped table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</td>
+                                        <th>Process</td>
+                                        <th>Personnel Involved</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Imgaging</td>
+                                        <td>Mr. Akutse</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseFour">
-                        Imaging Requests
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingFour">
-                    <div class="accordion-body">
-                        <div class="add_doc">
-                            <a href="#"><i class="fas fa-file"></i>
-                                New Request
-                            </a>
-                        </div>
-                        <table class="table table-striped table-hover" width="100%">
-                            <tr>
-                                <th>#</td>
-                                <th>Process</td>
-                                <th>Personnel Involved</td>
-                            </tr>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Imgaging</td>
-                                    <td>Mr. Akutse</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseTwo">
-                        Imaging Records
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingTwo">
-                    <div class="accordion-body">
-                        <div class="add_doc">
-                            <a href="#"><i class="fas fa-plus"></i>
-                                Add Record
-                            </a>
+        </div>
+    </div>
+
+    <div id="pat_operations" style="display: none;">
+        <div class="identity_tag">
+            <div class="h5">Specific Operations</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title_add">
+                                <button type="button" class="btn btn-success ope_buttons" id="add_general_note">
+                                    <i class="fas fa-plus mr-2" id="fa_gen_add"></i><i class="fas fa-minus mr-2"
+                                        id="fa_gen_minus"></i>
+                                    Add General Note
+                                </button>
+                                <button type="button" class="btn btn-light ope_buttons" id="add_rad_note">
+                                    <i class="fas fa-plus mr-2" id="fa_rad_add"></i><i class="fas fa-minus mr-2"
+                                        id="fa_rad_minus"></i>
+                                    Add Rad Note
+                                </button>
+                                <button type="button" class="btn btn-dark ope_buttons" id="add_diagnosis">
+                                    <i class="fas fa-plus mr-2" id="fa_diag_add"></i><i class="fas fa-minus mr-2"
+                                        id="fa_diag_minus"></i>
+                                    Add Diagnosis
+                                </button>
+                                <button type="button" class="btn btn-secondary ope_buttons" id="add_request">
+                                    <i class="fas fa-plus mr-2" id="fa_req_add"></i><i class="fas fa-minus mr-2"
+                                        id="fa_req_minus"></i>
+                                    Add Request
+                                </button>
+                                <button type="button" class="btn btn-warning ope_buttons" id="add_imaging">
+                                    <i class="fas fa-plus mr-2" id="fa_imaging_add"></i><i class="fas fa-minus mr-2"
+                                        id="fa_imaging_minus"></i>
+                                    Add Imaging
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="add_doc">📝</div>
-                    <table class="table table-striped table-hover" width="100%">
-                        <tr>
-                            <th>#</td>
-                            <th>Process</td>
-                            <th>Personnel Involved</td>
-                        </tr>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Imgaging</td>
-                                <td>Mr. Akutse</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    
+    
+                    <div class="space"></div>
+                    <div class="detail_summary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 single_detail">
+                                        <div class="row">
+                                            <div class="col-md-3 detail_label">{{ labels.name }}:</div>
+                                            <div class="col-md-9">{{ patient.name }} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 single_detail">
+                                        <div class="row">
+                                            <div class="col-md-5 detail_label">{{ labels.date_of_birth }}:</div>
+                                            <div class="col-md-7 summary_val">{{ patient.date_of_birth | date:'M d, Y' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 single_detail">
+                                        <div class="row">
+                                            <div class="col-md-3 detail_label">{{ labels.age }}:</div>
+                                            <div class="col-md-9 summary_val">{{ patient.age }} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 single_detail">
+                                        <div class="row">
+                                            <div class="col-md-5 detail_label">{{ labels.gender }}:</div>
+                                            <div class="col-md-7">{{ patient.gender }} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Button to open the modal -->
+                    <div class="row" id="showHere">
+                        <div class="col-md-12">
+                            <div id="general_note_form">
+                                <div class="h5 mb-3">
+                                    General Notes
+                                </div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form_general_note.as_p }}
+                                    <button class="btn btn-info" type="submit">Save</button>
+                                </form>
+                            </div>
+                            <div id="rad_note_form">
+                                <div class="h5 mb-3">
+                                    Radiologist/Radiographer Notes
+                                </div>                                
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.weight.label }}
+                                            </label>
+                                            {{ form_rad_note.weight }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.type_of_procedure.label }}
+                                            </label>
+                                            {{ form_rad_note.type_of_procedure }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.pre_procedure_bp_systolic.label }}
+                                            </label>
+                                            {{ form_rad_note.pre_procedure_bp_systolic }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.pre_procedure_bp_diastolic.label }}
+                                            </label>
+                                            {{ form_rad_note.pre_procedure_bp_diastolic }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.pre_pulse.label }}
+                                            </label>
+                                            {{ form_rad_note.pre_pulse }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.post_pulse.label }}
+                                            </label>
+                                            {{ form_rad_note.post_pulse }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.start_time_of_exams.label }}
+                                            </label>
+                                            {{ form_rad_note.start_time_of_exams }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.end_time_of_exams.label }}
+                                            </label>
+                                            {{ form_rad_note.end_time_of_exams }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.volume_of_contrast.label }}
+                                            </label>
+                                            {{ form_rad_note.volume_of_contrast }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.flow_rate.label }}
+                                            </label>
+                                            {{ form_rad_note.flow_rate }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.post_procedure_bp_systolic.label }}
+                                            </label>
+                                            {{ form_rad_note.post_procedure_bp_systolic }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_rad_note.post_procedure_bp_diastolic.label }}
+                                            </label>
+                                            {{ form_rad_note.post_procedure_bp_diastolic }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_rad_note.general_comments.label }}
+                                            </label>
+                                            {{ form_rad_note.general_comments }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_rad_note.note_date.label }}
+                                            </label>
+                                            {{ form_rad_note.note_date }}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-3"><button class="btn btn-info" type="submit">Save</button></div>
+                                </form>
+                            </div>
+                            <div id="diag_form">
+                                <div class="h5 mb-3">
+                                    Diagnoses
+                                </div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_diagnosis.study_date.label }}
+                                            </label>
+                                            {{ form_diagnosis.study_date }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_diagnosis.ward.label }}
+                                            </label>
+                                            {{ form_diagnosis.ward }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_diagnosis.requesting_physician.label }}
+                                            </label>
+                                            {{ form_diagnosis.requesting_physician }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_diagnosis.examination.label }}
+                                            </label>
+                                            {{ form_diagnosis.examination }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_diagnosis.technique.label }}
+                                            </label>
+                                            <p>{{ form_diagnosis.technique }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_diagnosis.findings.label }}
+                                            </label>
+                                            <p>{{ form_diagnosis.findings }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_diagnosis.impressions.label }}
+                                            </label>
+                                            <p>{{ form_diagnosis.impressions }}</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-info" type="submit">Save</button>
+                                </form>
+                            </div>
+    
+                            <div id="req_form">
+                                <div class="h5  mb-3">
+                                    Imaging Request
+                                </div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-info" type="submit">Save</button>
+                                </form>
+                            </div>
+                            <div id="imaging_form">
+                                <div class="h5 mb-3">
+                                    Imaging Record
+                                </div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-info" type="submit">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>   
+    
                 </div>
             </div>
         </div>
@@ -249,18 +628,19 @@
 
 {% block extrajs %}
 
+{{ block.super }}
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="detailsModalLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                The stubborn Modal
+            <div class="modal-body" id="detailsBody">
+                Somthingies
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -269,5 +649,251 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const btn_gen_note = document.getElementById("add_general_note");
+        const btn_rad_note = document.getElementById("add_rad_note");
+        const btn_diagnosis = document.getElementById("add_diagnosis");
+        const btn_request = document.getElementById("add_request");
+        const btn_imaging = document.getElementById("add_imaging");
+
+        const gen_note_form = document.getElementById("general_note_form");
+        const rad_note_form = document.getElementById("rad_note_form");
+        const diag_form = document.getElementById("diag_form");
+        const req_form = document.getElementById("req_form");
+        const imaging_form = document.getElementById("imaging_form");
+
+        const fa_gen_add = document.getElementById("fa_gen_add");
+        const fa_gen_minus = document.getElementById("fa_gen_minus");
+        const fa_rad_minus = document.getElementById("fa_rad_minus");
+        const fa_rad_add = document.getElementById("fa_rad_add");
+        const fa_diag_minus = document.getElementById("fa_diag_minus");
+        const fa_diag_add = document.getElementById("fa_diag_add");
+        const fa_req_add = document.getElementById("fa_req_add");
+        const fa_req_minus = document.getElementById("fa_req_minus");
+        const fa_imaging_add = document.getElementById("fa_imaging_add");
+        const fa_imaging_minus = document.getElementById("fa_imaging_minus");
+
+        // targetDiv.style.display = "none";
+        gen_note_form.style.display = "none";
+        rad_note_form.style.display = "none";
+        diag_form.style.display = "none";
+        req_form.style.display = "none";
+        imaging_form.style.display = "none";
+
+        fa_gen_minus.style.display = "none";
+        fa_rad_minus.style.display = "none";
+        fa_diag_minus.style.display = "none";
+        fa_req_minus.style.display = "none";
+        fa_imaging_minus.style.display = "none";
+
+        btn_gen_note.onclick = showGenNoteForm;
+        btn_rad_note.onclick = showRadNoteForm;
+        btn_diagnosis.onclick = showDiagForm;
+        btn_request.onclick = showReqForm;
+        btn_imaging.onclick = showImagingForm;
+
+        function showGenNoteForm(event) {
+            if (gen_note_form.style.display !== "none") {
+                gen_note_form.style.display = "none";
+                fa_gen_add.style.display = "inline";
+                fa_gen_minus.style.display = "none";
+            } else {
+                gen_note_form.style.display = "block";
+                fa_gen_minus.style.display = "inline";
+                fa_gen_add.style.display = "none";
+
+                rad_note_form.style.display = "none";
+                diag_form.style.display = "none";
+                req_form.style.display = "none";
+                imaging_form.style.display = "none";
+
+                fa_rad_minus.style.display = "none";
+                fa_diag_minus.style.display = "none";
+                fa_req_minus.style.display = "none";
+                fa_imaging_minus.style.display = "none";
+
+                fa_rad_add.style.display = "inline";
+                fa_diag_add.style.display = "inline";
+                fa_req_add.style.display = "inline";
+                fa_imaging_add.style.display = "inline";
+            }
+        }
+
+        function showRadNoteForm() {
+            if (rad_note_form.style.display !== "none") {
+                rad_note_form.style.display = "none";
+                fa_rad_add.style.display = "inline";
+                fa_rad_minus.style.display = "none";
+            } else {
+                rad_note_form.style.display = "block";
+                fa_rad_minus.style.display = "inline";
+                fa_rad_add.style.display = "none";
+
+                diag_form.style.display = "none";
+                req_form.style.display = "none";
+                imaging_form.style.display = "none";
+                gen_note_form.style.display = "none";
+
+                fa_gen_minus.style.display = "none";
+                fa_diag_minus.style.display = "none";
+                fa_req_minus.style.display = "none";
+                fa_imaging_minus.style.display = "none";
+
+                fa_gen_add.style.display = "inline";
+                fa_diag_add.style.display = "inline";
+                fa_req_add.style.display = "inline";
+                fa_imaging_add.style.display = "inline";
+            }
+        }
+
+        function showDiagForm() {
+            if (diag_form.style.display !== "none") {
+                diag_form.style.display = "none";
+                fa_diag_add.style.display = "inline";
+                fa_diag_minus.style.display = "none";
+            } else {
+                diag_form.style.display = "block";
+                fa_diag_minus.style.display = "inline";
+                fa_diag_add.style.display = "none";
+
+                rad_note_form.style.display = "none";
+                req_form.style.display = "none";
+                imaging_form.style.display = "none";
+                gen_note_form.style.display = "none";
+
+                fa_gen_minus.style.display = "none";
+                fa_rad_minus.style.display = "none";
+                fa_req_minus.style.display = "none";
+                fa_imaging_minus.style.display = "none";
+
+                fa_gen_add.style.display = "inline";
+                fa_rad_add.style.display = "inline";
+                fa_req_add.style.display = "inline";
+                fa_imaging_add.style.display = "inline";
+            }
+        }
+
+        function showReqForm() {
+            if (req_form.style.display !== "none") {
+                req_form.style.display = "none";
+                fa_req_add.style.display = "inline";
+                fa_req_minus.style.display = "none";
+            } else {
+                req_form.style.display = "block";
+                fa_req_minus.style.display = "inline";
+                fa_req_add.style.display = "none";
+
+                rad_note_form.style.display = "none";
+                diag_form.style.display = "none";
+                imaging_form.style.display = "none";
+                gen_note_form.style.display = "none";
+
+                fa_gen_minus.style.display = "none";
+                fa_rad_minus.style.display = "none";
+                fa_diag_minus.style.display = "none";
+                fa_imaging_minus.style.display = "none";
+
+                fa_gen_add.style.display = "inline";
+                fa_rad_add.style.display = "inline";
+                fa_diag_add.style.display = "inline";
+                fa_imaging_add.style.display = "inline";
+            }
+        }
+
+        function showImagingForm() {
+            if (imaging_form.style.display !== "none") {
+                imaging_form.style.display = "none";
+                fa_imaging_add.style.display = "inline";
+                fa_imaging_minus.style.display = "none";
+            } else {
+                imaging_form.style.display = "block";
+                fa_imaging_minus.style.display = "inline";
+                fa_imaging_add.style.display = "none";
+
+                rad_note_form.style.display = "none";
+                diag_form.style.display = "none";
+                req_form.style.display = "none";
+                gen_note_form.style.display = "none";
+
+                fa_gen_minus.style.display = "none";
+                fa_rad_minus.style.display = "none";
+                fa_diag_minus.style.display = "none";
+                fa_req_minus.style.display = "none";
+
+                fa_gen_add.style.display = "inline";
+                fa_rad_add.style.display = "inline";
+                fa_diag_add.style.display = "inline";
+                fa_req_add.style.display = "inline";
+            }
+        }
+
+        let generalNoteItems = document.querySelectorAll('.general_note_item');
+        const noteDivs = document.querySelectorAll(".note_item_details");
+
+        generalNoteItems.forEach(generalNoteItem => {
+            generalNoteItem.addEventListener('click', function () {
+                const itemId = generalNoteItem.getAttribute('data-item-id');
+                noteDivs.forEach(div => div.style.display = 'none');
+
+                noteDivs.forEach(div => div.style.display = 'none');  // hide all noteDivs
+
+                const targetDiv = document.getElementById('item-' + itemId);
+                if (targetDiv) {
+                    targetDiv.style.display = 'block';  // display the corresponding div
+                } 
+            });
+        });
+
+        const btn_main_detail = document.getElementById("pat_main");
+        const btn_docs = document.getElementById("pat_doc");
+        const btn_operations = document.getElementById("spec_ope");
+
+        const section_main_detail = document.getElementById("pat_main_details");
+        const section_docs = document.getElementById("docs_details");
+        const section_operations = document.getElementById("pat_operations");
+
+        btn_main_detail.onclick = showMainDetail;
+        btn_docs.onclick = showDocs;
+        btn_operations.onclick = showOperations;
+
+        function showMainDetail(event) {
+            if (section_main_detail.style.display !== "none") {
+                section_main_detail.style.display = "none";
+            } else {
+                section_main_detail.style.display = "block";
+                section_docs.style.display = "none";
+                section_operations.style.display = "none";
+            }
+        }
+
+        function showDocs(event) {
+            if (section_docs.style.display !== "none") {
+                section_docs.style.display = "none";
+            } else {
+                section_docs.style.display = "block";
+                section_main_detail.style.display = "none";
+                section_operations.style.display = "none";
+            }
+        }
+
+        function showOperations(event) {
+            if (section_operations.style.display !== "none") {
+                section_operations.style.display = "none";
+            } else {
+                section_operations.style.display = "block";
+                section_main_detail.style.display = "none";
+                section_docs.style.display = "none";
+            }
+        }
+
+    });
+
+</script>
+
 
 {% endblock %}

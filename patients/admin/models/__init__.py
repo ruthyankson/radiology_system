@@ -6,6 +6,8 @@ from patients.admin.models.ImagingRecordAdmin import ImagingRecordAdmin
 from patients.admin.models.AcquiredImageStatusAdmin import AcquiredImageStatusAdmin
 from patients.admin.models.ImageRejectReasonsAdmin import ImageRejectReasonsAdmin
 from patients.admin.models.ImageRequestApprovalAdmin import ImageRequestApprovalAdmin
+from patients.admin.models.SpecificNoteAdmin import SpecificNoteAdmin
+from patients.admin.models.PostPreparationNoteAdmin import PostPreparationNoteAdmin
 
 
 __all__ = [
@@ -17,4 +19,6 @@ __all__ = [
     AcquiredImageStatusAdmin,
     ImageRejectReasonsAdmin,
     ImageRequestApprovalAdmin,
+    SpecificNoteAdmin,
+    PostPreparationNoteAdmin,
 ]

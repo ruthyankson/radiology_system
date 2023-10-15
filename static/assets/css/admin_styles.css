@@ -30,8 +30,12 @@ div.breadcrumbs {
     padding: 40px 30px;
 }
 
-.detail_side {
-    border-right: 2px solid#d4e9ff;
+.detail_side_left {
+    border-right: 1px solid#d4e9ff;
+}
+
+.detail_side_right {
+    border-left: 1px solid#d4e9ff;
 }
 
 .single_detail {
@@ -52,16 +56,16 @@ div.breadcrumbs {
     text-align: center;
     padding: 15px;
     background-color: #d4e9ff;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
-.sub_sections {
+.sec_section {
     padding-top: 30px;
     border-top: 2px solid#d4e9ff;
 }
 
 .space {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .section_title {
@@ -118,3 +122,39 @@ div.breadcrumbs {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.ope_buttons {
+    width: 18%;
+}
+
+.tab_buttons {
+    width: 25%;    
+}
+
+.detail_summary {
+    padding: 20px;
+    background: #ebf4ff;
+}
+
+#showHere {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 30px 0;
+    border: 2px solid #d4e9ff;
+}
+
+.patient_item {
+    cursor: pointer;
+}
+
+.general_note_item {
+    background-color: #e5e5e5;
+}
+
+.no_shows {
+    display: none;
+}
+
+/* #docs_details {    
+    border-top: 2px solid#d4e9ff;
+} */

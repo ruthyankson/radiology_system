@@ -2,6 +2,7 @@ from django.contrib import admin
 from patients.admin.forms.PatientFormAdmin import PatientFormAdmin
 from django.urls import path, reverse
 from django.utils.html import format_html
+from django.contrib.auth.decorators import login_required
 
 from patients.models.Patient import Patient
 from patients.admin.views.PatientDetailView import PatientDetailView
@@ -28,7 +29,7 @@ class PatientAdmin(admin.ModelAdmin):
     return [
             path(
                 "patient/<pk>",
-                self.admin_site.admin_view(PatientDetailView.as_view()),
+                login_required(self.admin_site.admin_view(PatientDetailView.as_view())),
                 name=f"patient_detail",
             ),
             *super().get_urls(),
@@ -36,7 +37,7 @@ class PatientAdmin(admin.ModelAdmin):
 
   def detail(self, obj: Patient) -> str:
         url = reverse("admin:patient_detail", args=[obj.pk])
-        return format_html(f'<a href="{url}">👁</a>')
+        return format_html(f'<a href="{url}"><i class="fas fa-eye ml-3"></i></a>')
 
 
 

@@ -1,6 +1,6 @@
 from django.db import models
-from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from utils.MyModel import MyModel
 
@@ -21,7 +21,7 @@ class PatientNote(ActivatorModel, TimeStampedModel, MyModel):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     note_title = models.CharField(max_length=255, null=True, verbose_name='title')
     note = RichTextField()
-    note_date = models.DateTimeField(auto_now=True, verbose_name="date")
+    note_date = models.DateTimeField(verbose_name="date", default=timezone.now)
     
     activate_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,5 +29,10 @@ class PatientNote(ActivatorModel, TimeStampedModel, MyModel):
     def __str__(self):
         return str(self.patient)
 
-    def get_absolute_url(self):
-        return reverse("_detail", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("_detail", kwargs={"pk": self.pk})
+
+    # @property
+    # def fields_verbose(self):
+    #     return dict([ (f.name, f.verbose_name) for f in self._meta.fields + self._meta.many_to_many ])
+

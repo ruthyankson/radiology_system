@@ -17,7 +17,7 @@ class ImagingRecordAdmin(admin.ModelAdmin):
               ("dose_area_product", "dose_length_product")
               ]
     readonly_fields = ["patient"]
-    form = ImagingRecordFormAdmin
+    # form = ImagingRecordFormAdmin
 
     def save_model(self, request, obj, form, change):
         obj.created_by = request.user

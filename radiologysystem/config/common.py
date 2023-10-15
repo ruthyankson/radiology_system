@@ -142,6 +142,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'admin:index'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        #  'height': 800,
+        #  'width': 1200,
+         "removePlugins": "exportpdf",
+    }
+}
+
+# CKEDITOR_BASEPATH = "ckeditor/ckeditor/"
+
 # LOGOUT_REDIRECT_URL = 'admin:logout'
 
 JAZZMIN_SETTINGS = {

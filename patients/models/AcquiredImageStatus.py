@@ -17,16 +17,16 @@ class AcquiredImageStatus(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name = "acquired image status"
         verbose_name_plural = "acquired images statuses"
 
-    imaging_record = models.ForeignKey(ImagingRecord, on_delete=models.CASCADE)
-    approval_date = models.DateTimeField(null=True)
-    radiology_staff_id = models.CharField(max_length=255)
+    imaging_record = models.OneToOneField(ImagingRecord, on_delete=models.CASCADE)
+    approval_date = models.DateTimeField()
+    radiology_staff_id = models.CharField(max_length=255, null=True)
     image_status = models.CharField(max_length=50, choices=ACQUIRED_IMAGE_STATUS)
     
     activate_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.imaging_record)
+        return str(self.imaging_record) + " imaging "  + (str(self.id))[0:3]
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
