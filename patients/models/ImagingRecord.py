@@ -20,7 +20,7 @@ def imaging_rooms():
     return [(item.examination, item.room_type + " " + item.examination) for item in Room.objects.all()]
 
 User = get_user_model()
-room_choices = [("Select Procedure", "Select Procedure"),]
+room_choices = [("Select room", "Select room"),]
 room_choices += to_list(imaging_rooms())
 
 class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
@@ -34,13 +34,12 @@ class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
     examination_room =  models.CharField(max_length=100, choices=room_choices)
     examination_repeat_type = models.CharField(max_length=50, choices=EXAMINATION_REPEAT_TYPE)
     examination_type = models.ManyToManyField(ExaminationType)
-    image_status = models.CharField(max_length=50, choices=ACQUIRED_IMAGE_STATUS)
     setup_type = models.CharField(max_length=50, choices=PATIENT_SETUP_TYPES)
     ctdi = models.CharField(max_length=255, default='N/A', verbose_name='CTDI')
     radiation_quality = models.CharField(max_length=255, default='N/A', verbose_name='Radiation Quality (KVP)')
     radiation_quantity = models.CharField(max_length=255, default='N/A', verbose_name='Radiation Quantity (mAs)')
     current = models.CharField(max_length=255, default='N/A', verbose_name='Current (mA)')
-    radiation_time = models.DurationField(null=True, verbose_name='Time (sec)')
+    radiation_time = models.CharField(max_length=50, null=True, default='N/A', verbose_name='Time (sec)')
     dose_area_product = models.CharField(max_length=255, default='N/A', verbose_name='Dose Area Product (DAP)')
     dose_length_product = models.CharField(max_length=255, default='N/A', verbose_name='Dose Length Product (DLP)')
 
@@ -48,7 +47,7 @@ class ImagingRecord(ActivatorModel, TimeStampedModel, MyModel):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return (str(self.id))[0:3] + "_" + str(self.patient)
+        return (str(self.id))[0:3] + "_" + str(self.patient) + " Imaging Record"
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

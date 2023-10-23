@@ -1,6 +1,8 @@
 from patients.models.ImagingRecord import ImagingRecord as modelHere, room_choices
 
 from django import forms
+from django.contrib.admin.sites import site
+# from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWidgetWrapper
 
 from utils.constants import PATIENT_SETUP_TYPES, EXAMINATION_REPEAT_TYPE
 
@@ -28,7 +30,7 @@ class ImagingRecordFormAdmin(forms.ModelForm):
         self.fields['dose_area_product'].label = 'Dose Area Product (DAP)'
         self.fields['dose_length_product'].label = 'Dose Length Product (DLP)'
 
-    record_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
+    record_date = forms.DateTimeField(required=True, widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
     radiology_staff_id = forms.CharField(max_length=255, required=True,
                                       widget=forms.TextInput(attrs={
                                           'class': 'form-control'
@@ -39,11 +41,12 @@ class ImagingRecordFormAdmin(forms.ModelForm):
             'class': 'form-control',
         })
     )
-    examination_repeat_type = forms.ChoiceField(widget=forms.RadioSelect, choices=EXAMINATION_REPEAT_TYPE)
+    
+    examination_repeat_type = forms.ChoiceField(required=True, widget=forms.RadioSelect, choices=EXAMINATION_REPEAT_TYPE)
 
-    examination_type = forms.ModelMultipleChoiceField(queryset=ExaminationType.objects.all(), 
+    examination_type = forms.ModelMultipleChoiceField(required=True, queryset=ExaminationType.objects.all(),
         widget=forms.CheckboxSelectMultiple())
-    setup_type = forms.ChoiceField(widget=forms.RadioSelect, choices=PATIENT_SETUP_TYPES)
+    setup_type = forms.ChoiceField(required=True, widget=forms.RadioSelect, choices=PATIENT_SETUP_TYPES)
 
     ctdi = forms.CharField(max_length=255, required=True,
                                       widget=forms.TextInput(attrs={
@@ -61,7 +64,10 @@ class ImagingRecordFormAdmin(forms.ModelForm):
                                       widget=forms.TextInput(attrs={
                                           'class': 'form-control'
                                       }), initial='N/A')
-    radiation_time = forms.DurationField()
+    radiation_time = forms.CharField(max_length=255, required=True,
+                                      widget=forms.TextInput(attrs={
+                                          'class': 'form-control'
+                                      }), initial='N/A')
     dose_area_product = forms.CharField(max_length=255, required=True,
                                       widget=forms.TextInput(attrs={
                                           'class': 'form-control'
@@ -71,6 +77,8 @@ class ImagingRecordFormAdmin(forms.ModelForm):
                                           'class': 'form-control'
                                       }), initial='N/A')
 
-
-
-
+    def clean_examination_room(self):
+        data = self.cleaned_data['examination_room']
+        if data == "Select room":
+            raise forms.ValidationError("Invalid value provided for this field.")
+        return data

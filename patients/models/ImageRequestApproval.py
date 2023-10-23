@@ -8,6 +8,7 @@ from utils.constants import IMAGE_REQUEST_APPROVAL
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
 from patients.models.ImageRequest import ImageRequest
+from patients.models.Patient import Patient
 
 
 User = get_user_model()
@@ -17,8 +18,9 @@ class ImageRequestApproval(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name = "image request approval"
         verbose_name_plural = "image request approvals"
 
-    image_request = models.OneToOneField(ImageRequest, on_delete=models.CASCADE)
-    approval = models.CharField(max_length=50, choices=IMAGE_REQUEST_APPROVAL, null=True, blank=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    image_request = models.UUIDField()
+    approval = models.CharField(max_length=50, choices=IMAGE_REQUEST_APPROVAL, null=True)
 
     activate_date = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)

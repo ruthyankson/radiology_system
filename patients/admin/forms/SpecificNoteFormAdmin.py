@@ -16,7 +16,8 @@ class SpecificNoteFormAdmin(forms.ModelForm):
 
     weight = forms.FloatField(widget=forms.TextInput(attrs={
                                    'class': 'form-control',
-                                   'type': 'number'
+                                   'type': 'number',
+                                   'step': '0.001'
                                }))
     type_of_procedure = forms.ChoiceField(
         choices=procedure_choices,
@@ -42,11 +43,13 @@ class SpecificNoteFormAdmin(forms.ModelForm):
 
     volume_of_contrast = forms.FloatField(widget=forms.TextInput(attrs={
                                    'class': 'form-control',
-                                   'type': 'number'
+                                   'type': 'number',
+                                   'step': '0.001'
                                }))
     flow_rate = forms.FloatField(widget=forms.TextInput(attrs={
                                    'class': 'form-control',
-                                   'type': 'number'
+                                   'type': 'number',
+                                   'step': '0.001'
                                }))
     
     

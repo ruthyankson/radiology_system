@@ -31,6 +31,10 @@
 <div class="container detail_main">
     <div class="row">
         <div class="col-md-12 mb-4">
+            <button type="button" class="btn btn-primary tab_buttons" id="spec_ope">
+                <i class="fas fa-toolbox mr-2"></i>
+                Operations
+            </button>
             <button type="button" class="btn btn-primary tab_buttons" id="pat_main">
                 <i class="fas fa-eye mr-2"></i>
                 Main
@@ -39,13 +43,9 @@
                 <i class="fas fa-file mr-2"></i>
                 Docs
             </button>
-            <button type="button" class="btn btn-primary tab_buttons" id="spec_ope">
-                <i class="fas fa-toolbox mr-2"></i>
-                Operations
-            </button>
         </div>
     </div>
-    <div id="pat_main_details">
+    <div id="pat_main_details" style="display: none;">
         <div class="identity_tag">
             {{ patient.name }}'s details
         </div>
@@ -108,6 +108,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% if general_note_labels != "No data" %}
                         {% for item in patient_notes %}
                         <tr class="general_note_item patient_item" data-item-id="{{ item.id }}">
                             <td>{{ forloop.counter }}</td>
@@ -115,14 +116,15 @@
                             <td>{{ item.note_date }}</td>
                             <td><i class="fas fa-eye"></i></td>
                         </tr>
-                        <tr >
-                            
+                        <tr>
+
                             <td colspan="4">
                                 <div class="container">
                                     <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
                                         <div class="col-md-12">
                                             <div class="row mb-3">
-                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_title }}:</div>
+                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_title }}:
+                                                </div>
                                                 <div class="col-md-6">{{ item.note_title }}</div>
                                             </div>
                                             <div class="row mb-3">
@@ -130,25 +132,31 @@
                                                 <div class="col-md-6">{{ item.note }}</div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_date }}:</div>
+                                                <div class="col-md-6 detail_label">{{ general_note_labels.note_date }}:
+                                                </div>
                                                 <div class="col-md-6">{{ item.note_date }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td class="no_data">No data</td>
+                        </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div id="docs_details" style="display: none;">   
+    <div id="docs_details" style="display: none;">
         <div class="identity_tag">
             <div class="h5">{{ patient.name }}'s Documents</div>
-        </div>     
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="accordion" id="accordionPanelsStayOpen">
@@ -330,7 +338,7 @@
         </div>
     </div>
 
-    <div id="pat_operations" style="display: none;">
+    <div id="pat_operations">
         <div class="identity_tag">
             <div class="h5">Specific Operations</div>
         </div>
@@ -340,36 +348,41 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="title_add">
-                                <button type="button" class="btn btn-success ope_buttons" id="add_general_note">
+                                <button type="button" class="btn btn-outline-success ope_buttons" id="add_general_note">
                                     <i class="fas fa-plus mr-2" id="fa_gen_add"></i><i class="fas fa-minus mr-2"
-                                        id="fa_gen_minus"></i>
-                                    Add General Note
+                                        id="fa_gen_minus" style="display: none;"></i>
+                                    General Note
                                 </button>
-                                <button type="button" class="btn btn-light ope_buttons" id="add_rad_note">
+                                <button type="button" class="btn btn-outline-info ope_buttons" id="add_rad_note">
                                     <i class="fas fa-plus mr-2" id="fa_rad_add"></i><i class="fas fa-minus mr-2"
-                                        id="fa_rad_minus"></i>
-                                    Add Rad Note
+                                        id="fa_rad_minus" style="display: none;"></i>
+                                    Rad Note
                                 </button>
-                                <button type="button" class="btn btn-dark ope_buttons" id="add_diagnosis">
+                                <button type="button" class="btn btn-outline-primary ope_buttons" id="add_diagnosis">
                                     <i class="fas fa-plus mr-2" id="fa_diag_add"></i><i class="fas fa-minus mr-2"
-                                        id="fa_diag_minus"></i>
-                                    Add Diagnosis
+                                        id="fa_diag_minus" style="display: none;"></i>
+                                    Diagnosis
                                 </button>
-                                <button type="button" class="btn btn-secondary ope_buttons" id="add_request">
+                                <button type="button" class="btn btn-outline-secondary ope_buttons" id="add_request">
                                     <i class="fas fa-plus mr-2" id="fa_req_add"></i><i class="fas fa-minus mr-2"
-                                        id="fa_req_minus"></i>
-                                    Add Request
+                                        id="fa_req_minus" style="display: none;"></i>
+                                    Request
                                 </button>
-                                <button type="button" class="btn btn-warning ope_buttons" id="add_imaging">
+                                <button type="button" class="btn btn-outline-warning ope_buttons" id="add_imaging">
                                     <i class="fas fa-plus mr-2" id="fa_imaging_add"></i><i class="fas fa-minus mr-2"
-                                        id="fa_imaging_minus"></i>
-                                    Add Imaging
+                                        id="fa_imaging_minus" style="display: none;"></i>
+                                    Imaging
+                                </button>
+                                <button type="button" class="btn btn-outline-dark ope_buttons"
+                                    id="add_post_preparation">
+                                    <i class="fas fa-plus mr-2" id="fa_post_preparation_add"></i><i
+                                        class="fas fa-minus mr-2" id="fa_post_preparation_minus" style="display: none;"></i>
+                                    Post Preparation
                                 </button>
                             </div>
                         </div>
                     </div>
-    
-    
+
                     <div class="space"></div>
                     <div class="detail_summary">
                         <div class="row">
@@ -384,7 +397,8 @@
                                     <div class="col-md-6 single_detail">
                                         <div class="row">
                                             <div class="col-md-5 detail_label">{{ labels.date_of_birth }}:</div>
-                                            <div class="col-md-7 summary_val">{{ patient.date_of_birth | date:'M d, Y' }}
+                                            <div class="col-md-7 summary_val">
+                                                {{ patient.date_of_birth | date:'M d, Y' }}
                                             </div>
                                         </div>
                                     </div>
@@ -410,24 +424,23 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Button to open the modal -->
                     <div class="row" id="showHere">
                         <div class="col-md-12">
-                            <div id="general_note_form">
+                            <div id="general_note_form" style="display: none;">
                                 <div class="h5 mb-3">
                                     General Notes
                                 </div>
-                                <form method="post">
+                                <form method="post" id="id_general_note_form">
                                     {% csrf_token %}
                                     {{ form_general_note.as_p }}
                                     <button class="btn btn-info" type="submit">Save</button>
                                 </form>
                             </div>
-                            <div id="rad_note_form">
+                            <div id="rad_note_form" style="display: none;">
                                 <div class="h5 mb-3">
                                     Radiologist/Radiographer Notes
-                                </div>                                
-                                <form method="post">
+                                </div>
+                                <form method="post" id="id_rad_note_form">
                                     {% csrf_token %}
                                     <div class="row mb-4">
                                         <div class="col-md-6">
@@ -529,15 +542,15 @@
                                             {{ form_rad_note.note_date }}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-3"><button class="btn btn-info" type="submit">Save</button></div>
                                 </form>
                             </div>
-                            <div id="diag_form">
+                            <div id="diag_form" style="display: none;">
                                 <div class="h5 mb-3">
                                     Diagnoses
                                 </div>
-                                <form method="post">
+                                <form method="post" id="id_form_diagnosis">
                                     {% csrf_token %}
                                     <div class="row mb-4">
                                         <div class="col-md-6">
@@ -594,34 +607,241 @@
                                     <button class="btn btn-info" type="submit">Save</button>
                                 </form>
                             </div>
-    
-                            <div id="req_form">
+
+                            <div id="req_form" style="display: none;">
                                 <div class="h5  mb-3">
                                     Imaging Request
                                 </div>
-                                <form method="post">
+                                <form method="post" id="id_form_image_request">
                                     {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_image_request.request_date.label }}
+                                            </label>
+                                            {{ form_image_request.request_date }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_image_request.ward.label }}
+                                            </label>
+                                            {{ form_image_request.ward }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_image_request.brief_clinical_history.label }}
+                                            </label>
+                                            <p>{{ form_image_request.brief_clinical_history }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_image_request.radiological_investigation_requested.label }}
+                                            </label>
+                                            <p>{{ form_image_request.radiological_investigation_requested }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_image_request.medical_officer.label }}
+                                            </label>
+                                            <p>{{ form_image_request.medical_officer }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_image_request.department.label }}
+                                            </label>
+                                            {{ form_image_request.department }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_image_request.radiology_serial_number.label }}
+                                            </label>
+                                            {{ form_image_request.radiology_serial_number }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <label>
+                                                {{ form_image_request.previous_exams_details.label }}
+                                            </label>
+                                            <p>{{ form_image_request.previous_exams_details }}</p>
+                                        </div>
+                                    </div>
                                     <button class="btn btn-info" type="submit">Save</button>
                                 </form>
                             </div>
-                            <div id="imaging_form">
+                            <div id="imaging_form" style="display: none;">
                                 <div class="h5 mb-3">
                                     Imaging Record
                                 </div>
-                                <form method="post">
+                                <form method="post" id="imaging_record_form">
                                     {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.record_date.label }}
+                                            </label>
+                                            {{ form_imaging_record.record_date }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.radiology_staff_id.label }}
+                                            </label>
+                                            {{ form_imaging_record.radiology_staff_id }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.examination_room.label }}
+                                            </label>
+                                            {{ form_imaging_record.examination_room }}
+                                            {% if form_imaging_record.examination_room.errors %}
+                                                <div class="errors">{{ form_imaging_record.examination_room.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.examination_repeat_type.label }}
+                                            </label>
+                                            {{ form_imaging_record.examination_repeat_type }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.examination_type.label }}
+                                            </label>
+                                            {{ form_imaging_record.examination_type }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_status.image_status.label }}
+                                            </label>
+                                            {{ form_imaging_status.image_status }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.setup_type.label }}
+                                            </label>
+                                            {{ form_imaging_record.setup_type }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.ctdi.label }}
+                                            </label>
+                                            <p>{{ form_imaging_record.ctdi }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.radiation_quality.label }}
+                                            </label>
+                                            {{ form_imaging_record.radiation_quality }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.radiation_quantity.label }}
+                                            </label>
+                                            {{ form_imaging_record.radiation_quantity }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.current.label }}
+                                            </label>
+                                            {{ form_imaging_record.current }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.radiation_time.label }}
+                                            </label>
+                                            {{ form_imaging_record.radiation_time }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.dose_area_product.label }}
+                                            </label>
+                                            {{ form_imaging_record.dose_area_product }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_imaging_record.dose_length_product.label }}
+                                            </label>
+                                            {{ form_imaging_record.dose_length_product }}
+                                        </div>
+                                    </div>                                                                      
+                                    <div class="row mb-4" id="reject_reasons_form" style="display: none;">
+                                        <div class="col-md-12">
+                                            <div class="h6">
+                                                Reject Reasons
+                                            </div>
+                                                {{ form_reject_reasons.as_p }}
+                                        </div>
+                                    </div>
+                                    <div id="hidden_submit" style="display: none;">
+                                        <button class="btn btn-info" type="submit">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="post_preparation_form" style="display: none;">
+                                <div class="h5 mb-3">
+                                    Post Preparation Note
+                                </div>
+                                <form method="post" id="id_form_post_preparation">
+                                    {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_post_preparation.preparation_confirmation.label }}
+                                            </label>
+                                            {{ form_post_preparation.preparation_confirmation }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_post_preparation.injection_swelling.label }}
+                                            </label>
+                                            {{ form_post_preparation.injection_swelling }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_post_preparation.staff_signature.label }}
+                                            </label>
+                                            {{ form_post_preparation.staff_signature }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                {{ form_post_preparation.preparation_date.label }}
+                                            </label>
+                                            {{ form_post_preparation.preparation_date }}
+                                        </div>
+                                    </div>
                                     <button class="btn btn-info" type="submit">Save</button>
                                 </form>
                             </div>
                         </div>
-                    </div>   
-    
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Your custom content here -->
 {% endblock %}
@@ -630,23 +850,34 @@
 
 {{ block.super }}
 <!-- Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="rejectReasonsModal" tabindex="-1" aria-hidden="true"
+ aria-labelledby="rejectReasonsModalLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailsModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="rejectReasonsModalLabel">Reject Reasons</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="detailsBody">
-                Somthingies
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary close_modal" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="closem">&times;</span>
+        <p>Modal Content Goes Here</p>
     </div>
 </div>
 
@@ -660,12 +891,14 @@
         const btn_diagnosis = document.getElementById("add_diagnosis");
         const btn_request = document.getElementById("add_request");
         const btn_imaging = document.getElementById("add_imaging");
+        const btn_post_preparation = document.getElementById("add_post_preparation")
 
         const gen_note_form = document.getElementById("general_note_form");
         const rad_note_form = document.getElementById("rad_note_form");
         const diag_form = document.getElementById("diag_form");
         const req_form = document.getElementById("req_form");
         const imaging_form = document.getElementById("imaging_form");
+        const post_preparation_form = document.getElementById("post_preparation_form")
 
         const fa_gen_add = document.getElementById("fa_gen_add");
         const fa_gen_minus = document.getElementById("fa_gen_minus");
@@ -677,25 +910,15 @@
         const fa_req_minus = document.getElementById("fa_req_minus");
         const fa_imaging_add = document.getElementById("fa_imaging_add");
         const fa_imaging_minus = document.getElementById("fa_imaging_minus");
-
-        // targetDiv.style.display = "none";
-        gen_note_form.style.display = "none";
-        rad_note_form.style.display = "none";
-        diag_form.style.display = "none";
-        req_form.style.display = "none";
-        imaging_form.style.display = "none";
-
-        fa_gen_minus.style.display = "none";
-        fa_rad_minus.style.display = "none";
-        fa_diag_minus.style.display = "none";
-        fa_req_minus.style.display = "none";
-        fa_imaging_minus.style.display = "none";
+        const fa_post_preparation_add = document.getElementById("fa_post_preparation_add")
+        const fa_post_preparation_minus = document.getElementById("fa_post_preparation_minus")
 
         btn_gen_note.onclick = showGenNoteForm;
         btn_rad_note.onclick = showRadNoteForm;
         btn_diagnosis.onclick = showDiagForm;
         btn_request.onclick = showReqForm;
         btn_imaging.onclick = showImagingForm;
+        btn_post_preparation.onclick = showPostPreparationForm;
 
         function showGenNoteForm(event) {
             if (gen_note_form.style.display !== "none") {
@@ -711,16 +934,19 @@
                 diag_form.style.display = "none";
                 req_form.style.display = "none";
                 imaging_form.style.display = "none";
+                post_preparation_form.style.display = "none";
 
                 fa_rad_minus.style.display = "none";
                 fa_diag_minus.style.display = "none";
                 fa_req_minus.style.display = "none";
                 fa_imaging_minus.style.display = "none";
+                fa_post_preparation_minus.style.display = "none";
 
                 fa_rad_add.style.display = "inline";
                 fa_diag_add.style.display = "inline";
                 fa_req_add.style.display = "inline";
                 fa_imaging_add.style.display = "inline";
+                fa_post_preparation_add.style.display = "inline";
             }
         }
 
@@ -738,16 +964,19 @@
                 req_form.style.display = "none";
                 imaging_form.style.display = "none";
                 gen_note_form.style.display = "none";
+                post_preparation_form.style.display = "none";
 
                 fa_gen_minus.style.display = "none";
                 fa_diag_minus.style.display = "none";
                 fa_req_minus.style.display = "none";
                 fa_imaging_minus.style.display = "none";
+                fa_post_preparation_minus.style.display = "none";
 
                 fa_gen_add.style.display = "inline";
                 fa_diag_add.style.display = "inline";
                 fa_req_add.style.display = "inline";
                 fa_imaging_add.style.display = "inline";
+                fa_post_preparation_add.style.display = "inline";
             }
         }
 
@@ -765,16 +994,19 @@
                 req_form.style.display = "none";
                 imaging_form.style.display = "none";
                 gen_note_form.style.display = "none";
+                post_preparation_form.style.display = "none";
 
                 fa_gen_minus.style.display = "none";
                 fa_rad_minus.style.display = "none";
                 fa_req_minus.style.display = "none";
                 fa_imaging_minus.style.display = "none";
+                fa_post_preparation_minus.style.display = "none";
 
                 fa_gen_add.style.display = "inline";
                 fa_rad_add.style.display = "inline";
                 fa_req_add.style.display = "inline";
                 fa_imaging_add.style.display = "inline";
+                fa_post_preparation_add.style.display = "inline";
             }
         }
 
@@ -792,16 +1024,19 @@
                 diag_form.style.display = "none";
                 imaging_form.style.display = "none";
                 gen_note_form.style.display = "none";
+                post_preparation_form.style.display = "none";
 
                 fa_gen_minus.style.display = "none";
                 fa_rad_minus.style.display = "none";
                 fa_diag_minus.style.display = "none";
                 fa_imaging_minus.style.display = "none";
+                fa_post_preparation_minus.style.display = "none";
 
                 fa_gen_add.style.display = "inline";
                 fa_rad_add.style.display = "inline";
                 fa_diag_add.style.display = "inline";
                 fa_imaging_add.style.display = "inline";
+                fa_post_preparation_add.style.display = "inline";
             }
         }
 
@@ -819,16 +1054,49 @@
                 diag_form.style.display = "none";
                 req_form.style.display = "none";
                 gen_note_form.style.display = "none";
+                post_preparation_form.style.display = "none";
 
                 fa_gen_minus.style.display = "none";
                 fa_rad_minus.style.display = "none";
                 fa_diag_minus.style.display = "none";
                 fa_req_minus.style.display = "none";
+                fa_post_preparation_minus.style.display = "none";
 
                 fa_gen_add.style.display = "inline";
                 fa_rad_add.style.display = "inline";
                 fa_diag_add.style.display = "inline";
                 fa_req_add.style.display = "inline";
+                fa_post_preparation_add.style.display = "inline";
+            }
+        }
+
+        function showPostPreparationForm() {
+            if (post_preparation_form.style.display !== "none") {
+                post_preparation_form.style.display = "none";
+                fa_post_preparation_add.style.display = "inline";
+                fa_post_preparation_minus.style.display = "none";
+            } else {
+                post_preparation_form.style.display = "block";
+                fa_post_preparation_minus.style.display = "inline";
+                fa_post_preparation_add.style.display = "none";
+
+                rad_note_form.style.display = "none";
+                diag_form.style.display = "none";
+                req_form.style.display = "none";
+                gen_note_form.style.display = "none";
+                imaging_form.style.display = "none";
+
+                fa_gen_minus.style.display = "none";
+                fa_rad_minus.style.display = "none";
+                fa_diag_minus.style.display = "none";
+                fa_req_minus.style.display = "none";
+                fa_imaging_minus.style.display = "none";
+
+                fa_gen_add.style.display = "inline";
+                fa_rad_add.style.display = "inline";
+                fa_diag_add.style.display = "inline";
+                fa_req_add.style.display = "inline";
+                fa_imaging_add.style.display = "inline";
             }
         }
 
@@ -845,7 +1113,7 @@
                 const targetDiv = document.getElementById('item-' + itemId);
                 if (targetDiv) {
                     targetDiv.style.display = 'block';  // display the corresponding div
-                } 
+                }
             });
         });
 
@@ -891,6 +1159,94 @@
             }
         }
 
+        // const form = document.getElementById('myForm');
+        // const modal = document.getElementById('rejectReasonsModal');
+        const modal = $('#rejectReasonsModal');
+        // const closeModalButton = document.querySelector('.closem');
+        // let image_status = "{{ record_status }}";
+        modal.modal({ 
+            show: false,          
+            backdrop: 'static',
+            keyboard: false  // to also prevent closing with keyboard
+        });
+        // imaging_form.addEventListener('submit', function (event) {
+        //     // After form submission logic (or AJAX success), show the modal:
+        //     // event.preventDefault();
+        //     // modal.modal('show');
+        //     if (image_status == "Rejected") {
+        //         event.preventDefault();
+        //         modal.modal('show');
+        //     } else {
+        //         modal.modal('hide');
+        //     }
+        // });       
+
+        $('.close').click(function () {
+            modal.modal('hide');
+        });
+        $('.close_modal').click(function () {
+            modal.modal('hide');
+        });
+        // closeModalButton.addEventListener('click', function () {
+        //     modal.style.display = 'none';
+        // });
+
+        let hiddenSubmit = document.getElementById("hidden_submit");
+        let factorsSelect = document.getElementById("id_factors");
+        let subFactorsSelect = document.getElementById("id_sub_factors");
+        const statusRejected = document.getElementById('id_image_status_1');
+        const statusAccepted = document.getElementById('id_image_status_0');
+        let factorsSelected = false;
+        let subFactorsSelected = false;
+        let imagingRecordForm = document.getElementById("imaging_record_form");
+        let rejectReasonsForm = document.getElementById("reject_reasons_form");
+
+        if (imagingRecordForm) {
+            const statusRejected = document.getElementById('id_image_status_1');
+            let imageStatus = document.querySelector("#id_image_status");
+            // let pregnantField = document.querySelector(".field-pregnant");
+
+            // pregnantField.style.display = (statusRejected.checked) ? "block" : "none";
+
+            imageStatus.addEventListener("change", function () {
+                if (statusRejected.checked) {
+                    rejectReasonsForm.style.display = "block";
+                    hiddenSubmit.style.display = "none";
+                } else {
+                    rejectReasonsForm.style.display = "none";
+                    hiddenSubmit.style.display = "block";
+                }
+            });
+
+            let selectedSubFactors = [];
+            let selectedFactors = [];
+
+            factorsSelect.addEventListener('change', function () {
+                var selectedOptions = this.selectedOptions;
+
+                if (selectedOptions.length === 0) {
+                    factorsSelected = false;
+                } else {
+                    factorsSelected = true;
+                }
+
+                subFactorsSelect.addEventListener('change', function () {
+                    selectedSubFactors = this.selectedOptions;
+
+                    if (selectedSubFactors.length === 0) {
+                        subFactorsSelected = false;
+                    } else {
+                        subFactorsSelected = true;
+                    }
+
+                    if (statusRejected.checked && factorsSelected === true && subFactorsSelected === true) {
+                        hiddenSubmit.style.display = "block";
+                    } else {
+                        hiddenSubmit.style.display = "none";
+                    }
+                });
+            });
+        }
     });
 
 </script>

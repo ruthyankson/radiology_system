@@ -1,0 +1,267 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<!-- custom style -->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_styles.css' %}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Dashboard</a> &rsaquo;
+    <a href="{% url 'admin:patients_imagingrecord_changelist' %}">Imaging Record</a> &rsaquo;
+    Imaging Record Detail
+</div>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <div class="identity_tag">
+        {{ imaging_record }} details
+    </div>
+
+    <div class="detail_summary mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-3 detail_label">{{ patient_labels.name }}:</div>
+                            <div class="col-md-9">{{ patient.name }} </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-5 detail_label">{{ patient_labels.date_of_birth }}:</div>
+                            <div class="col-md-7 summary_val">
+                                {{ patient.date_of_birth | date:'M d, Y' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-3 detail_label">{{ patient_labels.age }}:</div>
+                            <div class="col-md-9 summary_val">{{ patient.age }} </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-5 detail_label">{{ patient_labels.gender }}:</div>
+                            <div class="col-md-7">{{ patient.gender }} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bordered_container">
+        <div class="row mb-5">
+            <div class="col-md-6 align-self-start detail_side_left">
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.record_date }}:</div>
+                    <div class="col">{{ imaging_record.record_date | date:'M d, Y' }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.radiology_staff_id}}:</div>
+                    <div class="col">{{ imaging_record.radiology_staff_id }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.examination_room }}:</div>
+                    <div class="col">{{ imaging_record.examination_room }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.examination_repeat_type}}:</div>
+                    <div class="col">{{ imaging_record.get_examination_repeat_type_display }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.examination_type }}:</div>
+                    <div class="col">
+                        <ul>
+                            {% for exam in imaging_record.examination_type.all %}
+                            <li>{{ exam.type_name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.setup_type}}:</div>
+                    <div class="col">{{ imaging_record.get_setup_type_display }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.ctdi }}:</div>
+                    <div class="col">{{ imaging_record.ctdi }} </div>
+                </div>
+            </div>
+            <div class="col-md-6 align-self-start detail_side_right">
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.radiation_quality }}:</div>
+                    <div class="col">{{ imaging_record.radiation_quality }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.radiation_quantity }}:</div>
+                    <div class="col">{{ imaging_record.radiation_quantity }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.current}}:</div>
+                    <div class="col">{{ imaging_record.current }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.radiation_time }}:</div>
+                    <div class="col">{{ imaging_record.radiation_time }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.dose_area_product}}:</div>
+                    <div class="col">{{ imaging_record.dose_area_product }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.dose_length_product }}:</div>
+                    <div class="col">{{ imaging_record.dose_length_product }} </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="single_detail">
+                    {% if imaging_status != "No data" %}
+                    <div class="row container" id="details_here">
+                        <div class="col-md-6">
+                            <div class="row single_detail">
+                                <div class="col detail_label">{{ imaging_status_labels.image_status }}:</div>
+                                <div class="col">{{ imaging_status.image_status }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            {% if reject_reasons != "No data" %}
+                            <div class="row single_detail">
+                                <div class="col detail_label">{{ reject_reasons_labels.factors }}:</div>
+                                <div class="col">
+                                    <ul>
+                                        {% for factor in reject_reasons.factors.all %}
+                                        <li>{{ factor.factor }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row single_detail">
+                                <div class="col detail_label">{{ reject_reasons_labels.sub_factors }}:</div>
+                                <div class="col">
+                                    <ul>
+                                        {% for sub_factor in reject_reasons.sub_factors.all %}
+                                        <li>{{ sub_factor.sub_factor }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div id="forms_here">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="id_form_acquired_image_status">
+                                        {{ form_imaging_status.as_p }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="id_form_image_reject_reasons" style="display: none;">
+                                        {{ form_reject_reasons.as_p }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="hidden_submit" style="display: none;">
+                                <button class="btn btn-info" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+
+{{ block.super }}
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let forms_here = document.getElementById("forms_here");
+        // let imagingRecordForm = document.getElementById("imaging_record_form");
+
+        if (forms_here) {
+            let hiddenSubmit = document.getElementById("hidden_submit");
+            let factorsSelect = document.getElementById("id_factors");
+            let subFactorsSelect = document.getElementById("id_sub_factors");
+            const statusRejected = document.getElementById('id_image_status_1');
+            const statusAccepted = document.getElementById('id_image_status_0');
+            let rejectReasonsForm = document.getElementById("id_form_image_reject_reasons");
+            let factorsSelected = false;
+            let subFactorsSelected = false;
+            let imageStatus = document.querySelector("#id_image_status");
+
+            imageStatus.addEventListener("change", function () {
+                if (statusRejected.checked) {
+                    rejectReasonsForm.style.display = "block";
+                    hiddenSubmit.style.display = "none";
+                } else {
+                    rejectReasonsForm.style.display = "none";
+                    hiddenSubmit.style.display = "block";
+                }
+            });
+
+            let selectedSubFactors = [];
+            let selectedFactors = [];
+
+            factorsSelect.addEventListener('change', function () {
+                var selectedOptions = this.selectedOptions;
+
+                if (selectedOptions.length === 0) {
+                    factorsSelected = false;
+                } else {
+                    factorsSelected = true;
+                }
+
+                subFactorsSelect.addEventListener('change', function () {
+                    selectedSubFactors = this.selectedOptions;
+
+                    if (selectedSubFactors.length === 0) {
+                        subFactorsSelected = false;
+                    } else {
+                        subFactorsSelected = true;
+                    }
+
+                    if (statusRejected.checked && factorsSelected === true && subFactorsSelected === true) {
+                        hiddenSubmit.style.display = "block";
+                    } else {
+                        hiddenSubmit.style.display = "none";
+                    }
+                });
+            });
+
+        }
+    });
+
+</script>
+
+
+{% endblock %}

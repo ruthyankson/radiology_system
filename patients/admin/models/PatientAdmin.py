@@ -9,13 +9,16 @@ from patients.admin.views.PatientDetailView import PatientDetailView
 
 # @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
+  actions = None
   list_display = ("hospital_number", "patient_type", "name", "gender", "detail")
+  ordering = ("-created",)
+  list_display_links = None
   fields = ["hospital_number", "patient_type", "name", 
-          ("date_of_birth", "age"), "gender",
-            ("contact", "address"),
+          "date_of_birth", "age", "gender",
+            "contact", "address",
             "pregnant" 
             ]
-  list_display_links = ["name"]
+  # list_display_links = ["name"]
   search_fields = ["name"]
   form = PatientFormAdmin
   # change_form_template = 'admin/site_change_form.html'
@@ -28,7 +31,7 @@ class PatientAdmin(admin.ModelAdmin):
   def get_urls(self):
     return [
             path(
-                "patient/<pk>",
+                "<pk>",
                 login_required(self.admin_site.admin_view(PatientDetailView.as_view())),
                 name=f"patient_detail",
             ),

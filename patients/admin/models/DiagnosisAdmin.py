@@ -5,6 +5,7 @@ from patients.admin.forms.DiagnosisFormAdmin import DiagnosisFormAdmin
 
 class DiagnosisAdmin(admin.ModelAdmin):
     list_display = ("patient", "requesting_physician", "study_date",)
+    ordering = ("-created",)
     search_fields = ["patient__name", "requesting_physician"]
     readonly_fields = ["patient"]
     exclude = ["id", "status", "deactivate_date"]

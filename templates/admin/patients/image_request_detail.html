@@ -1,0 +1,157 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<!-- custom style -->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_styles.css' %}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Dashboard</a> &rsaquo;
+    <a href="{% url 'admin:patients_imagerequest_changelist' %}">Image requests</a> &rsaquo;
+    Image Request Detail
+</div>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <div class="identity_tag">
+        {{ image_request }} details
+    </div>
+   
+    <div class="detail_summary mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-3 detail_label">{{ patient_labels.name }}:</div>
+                            <div class="col-md-9">{{ patient.name }} </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-5 detail_label">{{ patient_labels.date_of_birth }}:</div>
+                            <div class="col-md-7 summary_val">
+                                {{ patient.date_of_birth | date:'M d, Y' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-3 detail_label">{{ patient_labels.age }}:</div>
+                            <div class="col-md-9 summary_val">{{ patient.age }} </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 single_detail">
+                        <div class="row">
+                            <div class="col-md-5 detail_label">{{ patient_labels.gender }}:</div>
+                            <div class="col-md-7">{{ patient.gender }} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bordered_container">
+        <div class="row mb-5">
+            <div class="col-md-6 align-self-start detail_side_left">
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.request_date }}:</div>
+                    <div class="col">{{ image_request.request_date | date:'M d, Y' }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.medical_officer}}:</div>
+                    <div class="col">{{ image_request.medical_officer }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.ward }}:</div>
+                    <div class="col">{{ image_request.ward }} </div>
+                </div>
+            </div>
+            <div class="col-md-6 align-self-start detail_side_right">
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.department }}:</div>
+                    <div class="col">{{ image_request.department }} </div>
+                </div>
+                <div class="row single_detail">
+                    <div class="col detail_label">{{ labels.radiology_serial_number }}:</div>
+                    <div class="col">{{ image_request.radiology_serial_number }} </div>
+                </div>
+    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">            
+                <div class="single_detail">
+                    <div class="detail_label">{{ labels.brief_clinical_history }}:</div>
+                    <div>{{ image_request.brief_clinical_history }} </div>
+                </div>
+                <div class="single_detail">
+                    <div class="detail_label">{{ labels.radiological_investigation_requested }}:</div>
+                    <div>{{ image_request.radiological_investigation_requested }} </div>
+                </div>
+                <div class="single_detail">
+                    <div class="detail_label">{{ labels.previous_exams_details }}:</div>
+                    <div>{{ image_request.previous_exams_details }} </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">            
+                <div class="single_detail">
+                    <div class="row container" id="approval_detail" style="display: none;">
+                        <div class="detail_label">{{ approval_labels.approval }}:</div>
+                        <div id="approval_val">{{ request_approval.get_approval_display }} </div>
+                    </div>                 
+                    <form method="post" id="id_form_image_request_approval" style="display: none;">
+                        {% csrf_token %}
+                        {{ form_image_request_approval.as_p }}
+                        <button class="btn btn-info" type="submit">Save</button>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+
+{{ block.super }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const approval_detail = document.getElementById("approval_detail");
+        const approval_form = document.getElementById("id_form_image_request_approval");
+        const approval_val = document.getElementById("approval_val");
+        let approval = "{{ request_approval.approval }}";
+        if (approval == null) {
+            approval_detail.style.display = "none";
+            approval_form.style.display = "block";            
+        } else {
+            approval_form.style.display = "none";
+            approval_detail.style.display = "block";
+            if (approval == "Approved") {
+                approval_val.style.color = "green";
+            } else {
+                approval_val.style.color = "red";
+            }
+        }
+    });
+</script>
+
+{% endblock %}

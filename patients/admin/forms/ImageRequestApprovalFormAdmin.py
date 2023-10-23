@@ -8,9 +8,9 @@ class ImageRequestApprovalFormAdmin(forms.ModelForm):
     class Meta:
         model = modelHere
         fields = ("approval",)
-        exclude = ("image_request",)
+        exclude = ("image_request", "patient",)
         
-    approval = forms.ChoiceField(widget=forms.RadioSelect, choices=IMAGE_REQUEST_APPROVAL)
+    approval = forms.ChoiceField(widget=forms.RadioSelect, choices=IMAGE_REQUEST_APPROVAL, required=True)
 
 
 

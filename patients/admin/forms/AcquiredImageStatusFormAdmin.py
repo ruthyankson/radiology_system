@@ -8,16 +8,16 @@ class AcquiredImageStatusFormAdmin(forms.ModelForm):
     class Meta:
         model = modelHere
         fields = ("approval_date", "radiology_staff_id", "image_status",)
-        exclude = ("imaging_record",)
+        exclude = ("patient", "imaging_record",)
         
 
-    approval_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
+    approval_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}), required=False)
     radiology_staff_id = forms.CharField(max_length=255, required=False,
                                widget=forms.TextInput(attrs={
                                    'placeholder': 'ID',
                                    'class': 'form-control'
                                }))
-    image_status = forms.ChoiceField(widget=forms.RadioSelect, choices=ACQUIRED_IMAGE_STATUS)
+    image_status = forms.ChoiceField(required=True, widget=forms.RadioSelect, choices=ACQUIRED_IMAGE_STATUS)
 
 
 

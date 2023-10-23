@@ -17,6 +17,7 @@ class PostPreparationNoteFormAdmin(forms.ModelForm):
         self.fields['preparation_confirmation'].label = "Has patient confirmed the receival of post preparation measures?"
         self.fields['injection_swelling'].label = "Swelling at injection site?"
 
+    
     preparation_confirmation = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO)
     
     injection_swelling = forms.ChoiceField(widget=forms.RadioSelect, choices=YES_NO)
@@ -28,6 +29,5 @@ class PostPreparationNoteFormAdmin(forms.ModelForm):
                                       }))
 
     preparation_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
-
 
    

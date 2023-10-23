@@ -1,11 +1,14 @@
 from typing import Any, Optional
 from django.core.management.base import BaseCommand
+from django.contrib.auth import get_user_model
 
 from facility.models.ExaminationRoom import ExaminationRoom as modelHere
 
 from utils.constants import EXAMINATIONS
 from utils.helpers import validateUnique
 
+
+User = get_user_model()
 
 class Command(BaseCommand):
     help = 'Populate Examination Room database'

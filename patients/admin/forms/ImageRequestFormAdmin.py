@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 from patients.models.ImageRequest import ImageRequest as modelHere
 
 from django import forms

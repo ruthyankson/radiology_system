@@ -124,7 +124,11 @@ div.breadcrumbs {
 }
 
 .ope_buttons {
-    width: 18%;
+    width: 16%;
+}
+
+.btn-deep-blue {
+    background: #002857;
 }
 
 .tab_buttons {
@@ -155,6 +159,21 @@ div.breadcrumbs {
     display: none;
 }
 
+.no_data {
+    padding: 40px;
+}
+
+.inline-field {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.bordered_container {
+    padding-top: 30px;    
+    border: 2px solid #d4e9ff;
+}
+
 /* #docs_details {    
     border-top: 2px solid#d4e9ff;
 } */
+
