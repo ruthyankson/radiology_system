@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
     'debug_toolbar',
     'django_extensions',
     'ckeditor',
+    'django_select2',
 ]
 
 APPS = [

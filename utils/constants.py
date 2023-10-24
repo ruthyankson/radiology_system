@@ -31,6 +31,9 @@ ADMINISTRATION = 'AD'
 RADIOLOGY = 'RD'
 DEPARTMENTS = ["Administration", "Radiology"]
 
+# No data returned from query
+NO_DATA = "No data"
+
 # Db_Seeder Values
 JOBS = ['Biostatistics', 'Nurse', 'Radiologist', 
         'Radiographer', 'Medical Physicist', 

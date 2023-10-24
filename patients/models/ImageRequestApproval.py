@@ -26,7 +26,7 @@ class ImageRequestApproval(ActivatorModel, TimeStampedModel, MyModel):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.image_request)
+        return str(self.patient) + " image request approval " + (str(self.id))[0:3]
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

@@ -76,7 +76,7 @@
                 </div>
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.gender }}:</div>
-                    <div class="col">{{ patient.gender }} </div>
+                    <div class="col">{{ patient.get_gender_display }} </div>
                 </div>
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.contact }}:</div>
@@ -89,7 +89,7 @@
                 {% if patient.gender == 'F' %}
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.pregnant }}:</div>
-                    <div class="col">{{ patient.pregnant }} </div>
+                    <div class="col">{{ patient.get_pregnant_display }} </div>
                 </div>
                 {% endif %}
 
@@ -104,20 +104,17 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Date</th>
-                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% if general_note_labels != "No data" %}
                         {% for item in patient_notes %}
-                        <tr class="general_note_item patient_item" data-item-id="{{ item.id }}">
+                        <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
                             <td>{{ forloop.counter }}</td>
                             <td>{{ item.note_title }}</td>
                             <td>{{ item.note_date }}</td>
-                            <td><i class="fas fa-eye"></i></td>
                         </tr>
                         <tr>
-
                             <td colspan="4">
                                 <div class="container">
                                     <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
@@ -129,7 +126,7 @@
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6 detail_label">{{ general_note_labels.note }}:</div>
-                                                <div class="col-md-6">{{ item.note }}</div>
+                                                <div class="col-md-6">{{ item.note|safe }}</div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6 detail_label">{{ general_note_labels.note_date }}:
@@ -165,13 +162,111 @@
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseOne">
-                                Approvals
+                                Radiologist / Radiographer Notes
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
-                                Some approvals
+                                <table class="table" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if rad_note_labels != "No data" %}
+                                        {% for item in rad_notes %}
+                                        <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item }}</td>
+                                            <td>{{ item.note_date }}</td>
+                                        </tr>
+                                        <tr>                
+                                            <td colspan="4">
+                                                <div class="container">
+                                                    <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                        <div class="col-md-12">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.weight }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.weight }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.type_of_procedure }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.pre_procedure_bp_systolic }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.pre_procedure_bp_diastolic }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.pre_procedure_bp_diastolic }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.pre_pulse }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.pre_pulse }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.start_time_of_exams }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.start_time_of_exams }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.end_time_of_exams }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.end_time_of_exams }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.volume_of_contrast }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.volume_of_contrast }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.flow_rate }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.flow_rate }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.post_procedure_bp_systolic }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.post_procedure_bp_systolic }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.post_procedure_bp_diastolic }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.post_procedure_bp_diastolic }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.post_pulse }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.post_pulse }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.general_comments }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.general_comments }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ rad_note_labels.note_date }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.note_date }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td class="no_data">No data</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -181,29 +276,63 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
                                 aria-controls="panelsStayOpen-collapseFive">
-                                Radiologist / Radiographer Notes
+                                Post Preparation Notes
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
                             aria-labelledby="panelsStayOpen-headingFive">
                             <div class="accordion-body">
-                                <table class="table table-striped table-hover" width="100%">
+                                <table class="table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>#</td>
-                                            <th>Process</td>
-                                            <th>Personnel Involved</td>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Imgaging</td>
-                                            <td>Mr. Akutse</td>
+                                        {% if post_preparation_labels != "No data" %}
+                                        {% for item in post_preparation_notes %}
+                                        <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item }}</td>
+                                            <td>{{ item.preparation_date }}</td>
                                         </tr>
+                                        <tr>                
+                                            <td colspan="4">
+                                                <div class="container">
+                                                    <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                        <div class="col-md-12">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ post_preparation_labels.preparation_confirmation }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.preparation_confirmation }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ post_preparation_labels.injection_swelling }}:</div>
+                                                                <div class="col-md-6">{{ item.injection_swelling }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ post_preparation_labels.staff_signature }}:</div>
+                                                                <div class="col-md-6">{{ item.staff_signature }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ post_preparation_labels.preparation_date }}:</div>
+                                                                <div class="col-md-6">{{ item.preparation_date }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td class="no_data">No data</td>
+                                        </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -218,23 +347,75 @@
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
                             aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
-                                <table class="table table-striped table-hover" width="100%">
+                                <table class="table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>#</td>
-                                            <th>Process</td>
-                                            <th>Personnel Involved</td>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Imgaging</td>
-                                            <td>Mr. Akutse</td>
+                                        {% if diagnosis_labels != "No data" %}
+                                        {% for item in diagnoses %}
+                                        <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item }}</td>
+                                            <td>{{ item.study_date }}</td>
                                         </tr>
+                                        <tr>                
+                                            <td colspan="4">
+                                                <div class="container">
+                                                    <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                        <div class="col-md-12">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.study_date }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.study_date }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.ward }}:</div>
+                                                                <div class="col-md-6">{{ item.ward }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.requesting_physician }}:</div>
+                                                                <div class="col-md-6">{{ item.requesting_physician }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.examination }}:</div>
+                                                                <div class="col-md-6">
+                                                                    <ul>
+                                                                        {% for sub in item.examination.all %}
+                                                                        <li>{{ sub.type_name }}</li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.technique }}:</div>
+                                                                <div class="col-md-6">{{ item.technique|safe}}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.findings }}:</div>
+                                                                <div class="col-md-6">{{ item.findings|safe }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ diagnosis_labels.impressions }}:</div>
+                                                                <div class="col-md-6">{{ item.impressions|safe }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td class="no_data">No data</td>
+                                        </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -249,23 +430,73 @@
                         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
                             aria-labelledby="panelsStayOpen-headingFour">
                             <div class="accordion-body">
-                                <table class="table table-striped table-hover" width="100%">
+                                <table class="table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>#</td>
-                                            <th>Process</td>
-                                            <th>Personnel Involved</td>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Imgaging</td>
-                                            <td>Mr. Akutse</td>
+                                        {% if image_request_labels != "No data" %}
+                                        {% for item in image_requests %}
+                                        <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ item }}</td>
+                                            <td>{{ item.request_date }}</td>
                                         </tr>
+                                        <tr>                
+                                            <td colspan="4">
+                                                <div class="container">
+                                                    <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                        <div class="col-md-12">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.request_date }}:
+                                                                </div>
+                                                                <div class="col-md-6">{{ item.request_date }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.ward }}:</div>
+                                                                <div class="col-md-6">{{ item.ward }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.brief_clinical_history }}:</div>
+                                                                <div class="col-md-6">{{ item.brief_clinical_history }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.radiological_investigation_requested }}:</div>
+                                                                <div class="col-md-6">{{ item.radiological_investigation_requested }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.medical_officer }}:</div>
+                                                                <div class="col-md-6">{{ item.medical_officer }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.department }}:</div>
+                                                                <div class="col-md-6">{{ item.department }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.radiology_serial_number }}:</div>
+                                                                <div class="col-md-6">{{ item.radiology_serial_number }}</div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6 detail_label">{{ image_request_labels.previous_exams_details }}:</div>
+                                                                <div class="col-md-6">{{ item.previous_exams_details }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td class="no_data">No data</td>
+                                        </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -282,23 +513,110 @@
                             <div class="accordion-body">
                             </div>
                             <div class="add_doc">📝</div>
-                            <table class="table table-striped table-hover" width="100%">
+                            <table class="table" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>#</td>
-                                        <th>Process</td>
-                                        <th>Personnel Involved</td>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Imgaging</td>
-                                        <td>Mr. Akutse</td>
+                                    {% if imaging_record_labels != "No data" %}
+                                    {% for item in imaging_records %}
+                                    <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item }}</td>
+                                        <td>{{ item.record_date }}</td>
                                     </tr>
+                                    <tr>                
+                                        <td colspan="4">
+                                            <div class="container">
+                                                <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                    <div class="col-md-12">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.record_date }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.record_date }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.radiology_staff_id }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.radiology_staff_id }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.examination_room }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.examination_room }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.examination_repeat_type }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.get_examination_repeat_type_display }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_records.examination_type }}:</div>
+                                                            <div class="col-md-6">
+                                                                <ul>
+                                                                    {% for sub in item.examination_type.all %}
+                                                                    <li>{{ sub.type_name }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.setup_type }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.get_setup_type_display }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.ctdi }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.ctdi }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.radiation_quality }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.radiation_quality }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.radiation_quantity }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.radiation_quantity }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.current }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.current }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.radiation_time }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.radiation_time }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.dose_area_product }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.dose_area_product }}</div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ imaging_record_labels.dose_length_product }}:
+                                                            </div>
+                                                            <div class="col-md-6">{{ item.dose_length_product }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td class="no_data">No data</td>
+                                    </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -314,20 +632,58 @@
                             <div class="accordion-body">
                             </div>
                             <div class="add_doc">📝</div>
-                            <table class="table table-striped table-hover" width="100%">
+                            <table class="table" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>#</td>
-                                        <th>Process</td>
-                                        <th>Personnel Involved</td>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Imgaging</td>
-                                        <td>Mr. Akutse</td>
+                                    {% if image_reject_reasons_labels != "No data" %}                                    
+                                    {% for item in image_reject_reasons %}
+                                    <tr class="doc_item patient_item" data-item-id="{{ item.id }}">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item }}</td>
+                                        <td>{{ item.created }}</td>
                                     </tr>
+                                    <tr>                
+                                        <td colspan="4">
+                                            <div class="container">
+                                                <div class="row note_item_details" id="item-{{ item.id }}" style="display: none;">
+                                                    <div class="col-md-12">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ image_reject_reasons_labels.factors }}:</div>
+                                                            <div class="col-md-6">
+                                                                <ul>
+                                                                    {% for sub in item.factors.all %}
+                                                                    <li>{{ sub.factor }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6 detail_label">{{ image_reject_reasons_labels.sub_factors }}:</div>
+                                                            <div class="col-md-6">
+                                                                <ul>
+                                                                    {% for sub in item.sub_factors.all %}
+                                                                    <li>{{ sub.sub_factor }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td class="no_data">No data</td>
+                                    </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
 
@@ -426,6 +782,11 @@
                     </div>
                     <div class="row" id="showHere">
                         <div class="col-md-12">
+                            {% if form_invalid %}
+                            <div class="alert alert-dismissible alert-danger">
+                                <strong>Oh snap!</strong> Correct any errors and try submitting again.
+                            </div>
+                            {% endif %}
                             <div id="general_note_form" style="display: none;">
                                 <div class="h5 mb-3">
                                     General Notes
@@ -558,6 +919,9 @@
                                                 {{ form_diagnosis.study_date.label }}
                                             </label>
                                             {{ form_diagnosis.study_date }}
+                                            {% if form_diagnosis.study_date.errors %}
+                                                <div class="errors">{{ form_diagnosis.study_date.errors }}</div>
+                                            {% endif %}
                                         </div>
                                         <div class="col-md-6">
                                             <label>
@@ -586,6 +950,9 @@
                                                 {{ form_diagnosis.technique.label }}
                                             </label>
                                             <p>{{ form_diagnosis.technique }}</p>
+                                            {% if form_diagnosis.technique.errors %}
+                                                <div class="errors">{{ form_diagnosis.technique.errors }}</div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row mb-4">
@@ -594,6 +961,9 @@
                                                 {{ form_diagnosis.findings.label }}
                                             </label>
                                             <p>{{ form_diagnosis.findings }}</p>
+                                            {% if form_diagnosis.findings.errors %}
+                                                <div class="errors">{{ form_diagnosis.findings.errors }}</div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row mb-4">
@@ -602,6 +972,9 @@
                                                 {{ form_diagnosis.impressions.label }}
                                             </label>
                                             <p>{{ form_diagnosis.impressions }}</p>
+                                            {% if form_diagnosis.impressions.errors %}
+                                                <div class="errors">{{ form_diagnosis.impressions.errors }}</div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <button class="btn btn-info" type="submit">Save</button>
@@ -881,11 +1254,20 @@
     </div>
 </div>
 
+<!-- <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        "{% if form.your_field.errors %}"
+            alert("{{ form.your_field.errors|join:", " }}");
+        "{% endif %}"
+    });
+</script> -->
+
+
+
 
 <script>
 
     document.addEventListener("DOMContentLoaded", function () {
-
         const btn_gen_note = document.getElementById("add_general_note");
         const btn_rad_note = document.getElementById("add_rad_note");
         const btn_diagnosis = document.getElementById("add_diagnosis");
@@ -1100,10 +1482,11 @@
             }
         }
 
-        let generalNoteItems = document.querySelectorAll('.general_note_item');
+        
+        let docItems = document.querySelectorAll('.doc_item');
         const noteDivs = document.querySelectorAll(".note_item_details");
 
-        generalNoteItems.forEach(generalNoteItem => {
+        docItems.forEach(generalNoteItem => {
             generalNoteItem.addEventListener('click', function () {
                 const itemId = generalNoteItem.getAttribute('data-item-id');
                 noteDivs.forEach(div => div.style.display = 'none');
@@ -1159,16 +1542,18 @@
             }
         }
 
+        
+
         // const form = document.getElementById('myForm');
         // const modal = document.getElementById('rejectReasonsModal');
-        const modal = $('#rejectReasonsModal');
+        // const modal = $('#rejectReasonsModal');
         // const closeModalButton = document.querySelector('.closem');
         // let image_status = "{{ record_status }}";
-        modal.modal({ 
-            show: false,          
-            backdrop: 'static',
-            keyboard: false  // to also prevent closing with keyboard
-        });
+        // modal.modal({ 
+        //     show: false,          
+        //     backdrop: 'static',
+        //     keyboard: false  // to also prevent closing with keyboard
+        // });
         // imaging_form.addEventListener('submit', function (event) {
         //     // After form submission logic (or AJAX success), show the modal:
         //     // event.preventDefault();
@@ -1181,12 +1566,12 @@
         //     }
         // });       
 
-        $('.close').click(function () {
-            modal.modal('hide');
-        });
-        $('.close_modal').click(function () {
-            modal.modal('hide');
-        });
+        // $('.close').click(function () {
+        //     modal.modal('hide');
+        // });
+        // $('.close_modal').click(function () {
+        //     modal.modal('hide');
+        // });
         // closeModalButton.addEventListener('click', function () {
         //     modal.style.display = 'none';
         // });
@@ -1204,9 +1589,6 @@
         if (imagingRecordForm) {
             const statusRejected = document.getElementById('id_image_status_1');
             let imageStatus = document.querySelector("#id_image_status");
-            // let pregnantField = document.querySelector(".field-pregnant");
-
-            // pregnantField.style.display = (statusRejected.checked) ? "block" : "none";
 
             imageStatus.addEventListener("change", function () {
                 if (statusRejected.checked) {

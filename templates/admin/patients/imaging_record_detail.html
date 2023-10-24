@@ -70,6 +70,11 @@
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.record_date }}:</div>
                     <div class="col">{{ imaging_record.record_date | date:'M d, Y' }} </div>
+                    {% if form.record_date.errors %}
+                        <div class="error">
+                            {{ form.record_date.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.radiology_staff_id}}:</div>
@@ -78,6 +83,11 @@
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.examination_room }}:</div>
                     <div class="col">{{ imaging_record.examination_room }} </div>
+                    {% if form.examination_room.errors %}
+                        <div class="error">
+                            {{ form.examination_room.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row single_detail">
                     <div class="col detail_label">{{ labels.examination_repeat_type}}:</div>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from utils.MyModel import MyModel
 
@@ -21,7 +22,7 @@ class Diagnosis(ActivatorModel, TimeStampedModel, MyModel):
         verbose_name_plural = "diagnoses"
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    study_date = models.DateTimeField()
+    study_date = models.DateTimeField(default=timezone.now)
     ward = models.CharField(max_length=255, null=True)
     requesting_physician = models.CharField(max_length=255, null=True)
     examination = models.ManyToManyField(ExaminationType)

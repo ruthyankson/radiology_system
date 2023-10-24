@@ -21,6 +21,7 @@ class PatientAdmin(admin.ModelAdmin):
   # list_display_links = ["name"]
   search_fields = ["name"]
   form = PatientFormAdmin
+  radio_fields = {"gender": admin.VERTICAL, "pregnant": admin.VERTICAL}
   # change_form_template = 'admin/site_change_form.html'
 
 

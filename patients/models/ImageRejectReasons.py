@@ -30,7 +30,7 @@ class ImageRejectReasons(ActivatorModel, TimeStampedModel, MyModel):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return  str(self.patient) + " reject reason "  + (str(self.id))[0:3]
+        return  str(self.patient) + " reject reason "  + (str(self.id))[0:3] + " for imaging record " + (str(self.imaging_record))[0:5]
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

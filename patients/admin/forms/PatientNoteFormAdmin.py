@@ -1,8 +1,8 @@
-from django.contrib import admin
 
 from patients.models.PatientNote import PatientNote as modelHere
 
-from ckeditor.widgets import CKEditorWidget
+
+from ckeditor.fields import RichTextField
 
 # from datetimepicker.widgets import DateTimePicker
 
@@ -22,8 +22,8 @@ class PatientNoteFormAdmin(forms.ModelForm):
                                    'class': 'form-control'
                                }))
 
-    note = forms.CharField(widget=CKEditorWidget())
+    note = RichTextField()
 
-    note_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
+    note_date = forms.DateTimeField(required=True, widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
 
    

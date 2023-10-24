@@ -7,6 +7,14 @@ body.theme-spacelab ul.nav-sidebar .nav-header {
     font-weight: bold;
 }
 
+/* input {
+    width: 100%;
+} */
+
+.errors, .errorlist {
+    color: red;
+}
+
 /* body.theme-darkly .brand-text {
     word-wrap: break-word !important;
     color: red !important;

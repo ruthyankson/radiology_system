@@ -9,7 +9,7 @@ class PatientNoteAdmin(admin.ModelAdmin):
     search_fields = ["patient", "note_title"]
     exclude = ["id", "status", "deactivate_date", "created_by", "note_date"]
     # readonly_fields = ["patient"]
-    form = PatientNoteFormAdmin
+    # form = PatientNoteFormAdmin
     
     def save_model(self, request, obj, form, change):
         obj.created_by = request.user

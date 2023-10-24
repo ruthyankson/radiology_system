@@ -151,7 +151,7 @@ div.breadcrumbs {
     cursor: pointer;
 }
 
-.general_note_item {
+.doc_item {
     background-color: #e5e5e5;
 }
 
@@ -172,6 +172,7 @@ div.breadcrumbs {
     padding-top: 30px;    
     border: 2px solid #d4e9ff;
 }
+
 
 /* #docs_details {    
     border-top: 2px solid#d4e9ff;

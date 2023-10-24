@@ -9,6 +9,7 @@ class DiagnosisAdmin(admin.ModelAdmin):
     search_fields = ["patient__name", "requesting_physician"]
     readonly_fields = ["patient"]
     exclude = ["id", "status", "deactivate_date"]
+    # autocomplete_fields = ["examination"]
     # form = DiagnosisFormAdmin
 
     def save_model(self, request, obj, form, change):
